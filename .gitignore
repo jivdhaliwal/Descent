@@ -1,0 +1,31 @@
+.DS_Store
+
+#ignore build dir
+build/
+
+#ignore nbproject dir
+nbproject/
+bin/cuda/
+bin/towerdefence/
+bin/
+#ignore distribution dir
+dist/
+
+manifest.mf
+build.xml
+
+#ignore the spritesheet PSDs
+src/data/sprites/critters/Full Sheets/
+
+dist.zip
+
+
+#ignore shuos eclipse files
+.classpath
+
+.project
+
+JCuda/
+
+
+bin/
