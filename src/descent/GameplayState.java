@@ -4,6 +4,7 @@
  */
 package descent;
 
+import descent.engine.component.ImageRenderComponent;
 import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
@@ -53,7 +54,7 @@ public class GameplayState extends BasicGameState {
         playerSprite = new Image("sprites/player.png");
         
         player = new Entity(sbg);
-//        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
+        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
         player.AddComponent(new PlayerMovement("PlayerMovement"));
 //        player.setCollisionPoly(new Polygon(new float[]{0,0,10,0,10,14,0,14}));
         player.setCollisionPoly(new Polygon(new float[]{0,0,9,0,9,11,0,11}));

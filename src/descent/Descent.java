@@ -37,7 +37,7 @@ public class Descent extends StateBasedGame
      {
           AppGameContainer app = new AppGameContainer(new ScalableGame(new Descent(title),width,height));
 
-          app.setDisplayMode((int)(width), (int)(height), fullscreen);
+          app.setDisplayMode((int)(width)*2, (int)(height)*2, fullscreen);
           app.setSmoothDeltas(true);
           app.setTargetFrameRate(fpslimit);
           app.setShowFPS(showFPS);

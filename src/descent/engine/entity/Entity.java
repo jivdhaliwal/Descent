@@ -162,8 +162,8 @@ public class Entity {
             renderComponent.render(gc, sb, gr);
         }
 
-        gr.setColor(Color.yellow);
-        gr.draw(collisionPoly);
+//        gr.setColor(Color.yellow);
+//        gr.draw(collisionPoly);
     }
 
     /**

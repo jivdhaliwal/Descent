@@ -5,7 +5,7 @@
 package descent.engine.component;
 
 /**
- *
+ * TODO change from floats to ints
  * @author Jiv Dhaliwal <jivdhaliwal@gmail.com>
  */
 
@@ -34,7 +34,7 @@ public class PlayerMovement extends Component {
     {
         this.id = id;
         gravity=-0.35f;
-        maxGravity=-2.0f;
+        maxGravity=-0.9f;
         jumpSpeed=0.35f;
     }
 
