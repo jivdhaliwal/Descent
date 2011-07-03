@@ -2,16 +2,15 @@ package descent.engine.entity;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import descent.GameplayState;
 import descent.Descent;
+import descent.engine.CollisionBlocks;
 import descent.engine.component.Component;
 import descent.engine.component.RenderComponent;
 
@@ -38,7 +37,7 @@ public class Entity {
     ArrayList<Component> components = null;
     
     private final StateBasedGame stateBasedGame;
-    GameplayState gameplayState;
+    private GameplayState gameplayState;
     
     private Polygon collisionPoly;
     
@@ -86,7 +85,7 @@ public class Entity {
      */
     public Vector2f getPosition()
     {
-        return new Vector2f(position.x, position.y);
+        return position;
     }
 
     /* Given tilesize and x,y position, return tile position
@@ -123,7 +122,7 @@ public class Entity {
 
     public void setPosition(Vector2f position)
     {
-        this.position = position;
+        this.position = new Vector2f(position.x,position.y);
     }
 
     public void setRotation(float rotate)
@@ -153,7 +152,7 @@ public class Entity {
         {
             component.update(gc,sb,delta);
         }
-        checkSpikeCollision();
+        
         
     }
 
@@ -190,7 +189,7 @@ public class Entity {
     
     public boolean blocked() {
         
-        for(Polygon collisionBlock:gameplayState.getCollisionBlocks()) {
+        for(Polygon collisionBlock:CollisionBlocks.getInstance().getWallBlocks()) {
             if(collisionPoly.intersects(collisionBlock)) {
                 return true;
             }
@@ -198,13 +197,14 @@ public class Entity {
         
         return false;
     }
-    
-    public void checkSpikeCollision(){
-        for(int i=0;i<gameplayState.getSpikeBlocks().size();i++){
-            if(collisionPoly.intersects(gameplayState.getSpikeBlocks().get(i))) {
-                this.setPosition(new Vector2f(1*8,2*8));
-            }
-        }
+
+    /**
+     * @return the gameplayState
+     */
+    public GameplayState getGameplayState() {
+        return gameplayState;
     }
+    
+    
 
 }

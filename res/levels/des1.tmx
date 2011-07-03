@@ -12,6 +12,11 @@
     <property name="Type" value="spike"/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="Type" value="checkpoint"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="30" height="30">
   <data encoding="base64" compression="gzip">
@@ -20,7 +25,7 @@
  </layer>
  <layer name="map" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC82W3QqAMAiF21X1/i/cTZAMf45nWglCDO3TzenG9sgoVEsQm0hYX8k9m7iajeQeTVzLz9P9VuvsrFxQbiamLCPLRf0Z/h/qWf7H28/onjLnK2tJ09X98biZPhTd+ahmM3FKYe48y0X7sOZbfV4ol42ZYckc5xg8P20Njdfrr935evFUs6I96eIiNkivi2Z3FZeRinqLfDLrHrdCWO48i5CYVnrmmL7RWbQib/Zni6u9O6RNZe5f5+u9bToUqaUuvQDA3OyFEA4AAA==
+   H4sIAAAAAAAAC8VWWw6EMAi0X+r9L2xMbGQJj4GCOwmJqdAZWko7thej0CbO7ReSTxRI7KHEzViuq4pX8qG8kq4KXi3Osv0xbe+0XFDeiKYoR5QXjc/wf1HPCK+mn/tYZzCzv7SWJFtdH4sX7UM3vDPv1WxEJ0XmzGd5vf21Yqv3a87r/c9qzmihOXINVpw0huq1+mt3vpaeai5vTbp4EZ/bpLeIN1dFn8yef2mulXrzYiZOZRzlzYKuU5aX30WIppWeOdg3ehetoLtvILzSu4P6VOb+73ytt02HIbXUZRfV5KlpEA4AAA==
   </data>
  </layer>
 </map>

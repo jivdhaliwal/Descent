@@ -12,6 +12,34 @@
     <property name="Type" value="spike"/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="Type" value="checkpoint"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="spikes" tilewidth="8" tileheight="8">
+  <image source="spikes.PNG" width="16" height="16"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="30" height="30">
   <data encoding="base64" compression="gzip">
@@ -20,7 +48,7 @@
  </layer>
  <layer name="map" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NkoD9ghOJRe0ftHbV31N5Re0ftHbV31N5Re0ftHc72MqJhQvK4zCbFXmqGy1AJ5+Fi70BgAA59HOcQDgAA
+   H4sIAAAAAAAAC2NkoD9ghOKhYC813DrY/Uttt5FiLzXDhhEPpiWglh30SJu8SJhcQKq9/Gh8gUFkLzFmDhX/ggAfEsZnLrn2UpKnCOkjNi7IsZeQ/GAunwejveSUsaTaS63yeyiH86i9w8deQvmF2DxFir3UDJehEs4DYS8vA3XaVsj2DgQGADlefHoQDgAA
   </data>
  </layer>
 </map>

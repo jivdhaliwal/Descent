@@ -177,7 +177,6 @@ public class PlayerMovement extends Component {
         }
         
         
-        System.out.println(jumpCounter);
         entity.setPosition(position);
         entity.getCollisionPoly().setLocation(position);
         
