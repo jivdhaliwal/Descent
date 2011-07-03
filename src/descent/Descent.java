@@ -17,7 +17,7 @@ public class Descent extends StateBasedGame
 
      static boolean showFPS = false;
 
-     static String title = "Ascension";
+     static String title = "Descent";
 
      static int fpslimit = 60;
 
@@ -31,13 +31,14 @@ public class Descent extends StateBasedGame
 
           this.addState(new GameplayState(GAMEPLAYSTATE));
           this.enterState(GAMEPLAYSTATE);
+          
      }
 
      public static void main(String[] args) throws SlickException
      {
           AppGameContainer app = new AppGameContainer(new ScalableGame(new Descent(title),width,height));
 
-          app.setDisplayMode((int)(width)*2, (int)(height)*2, fullscreen);
+          app.setDisplayMode((int)(width), (int)(height), fullscreen);
           app.setSmoothDeltas(true);
           app.setTargetFrameRate(fpslimit);
           app.setShowFPS(showFPS);
@@ -45,9 +46,10 @@ public class Descent extends StateBasedGame
      }
 
     @Override
-    public void initStatesList(GameContainer container) throws SlickException {
+    public void initStatesList(GameContainer gc) throws SlickException {
     }
 
+    
     
      
 }

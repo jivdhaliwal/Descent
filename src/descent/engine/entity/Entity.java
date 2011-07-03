@@ -153,6 +153,7 @@ public class Entity {
         {
             component.update(gc,sb,delta);
         }
+        checkSpikeCollision();
         
     }
 
@@ -198,11 +199,10 @@ public class Entity {
         return false;
     }
     
-    public void checkHealthCollision(){
-        for(int i=0;i<gameplayState.getHealthBlocks().size();i++){
-            if(collisionPoly.intersects(gameplayState.getHealthBlocks().get(i))) {
-
-                gameplayState.getHealthBlocks().remove(i);
+    public void checkSpikeCollision(){
+        for(int i=0;i<gameplayState.getSpikeBlocks().size();i++){
+            if(collisionPoly.intersects(gameplayState.getSpikeBlocks().get(i))) {
+                this.setPosition(new Vector2f(1*8,2*8));
             }
         }
     }

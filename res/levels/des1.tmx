@@ -7,6 +7,11 @@
     <property name="Type" value="collision"/>
    </properties>
   </tile>
+  <tile id="6">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="30" height="30">
   <data encoding="base64" compression="gzip">
@@ -15,7 +20,7 @@
  </layer>
  <layer name="map" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NkQABGOmNyAbl6R6q9uDA7FOOKF1r4l5i0MFTDeaDtZUSjsZlPjTyIzV52AjQl4YPPXlqVMfjspRcYtXfU3lF7R+0dtXfU3lF7R569A4EBRc/LMBAOAAA=
+   H4sIAAAAAAAAC82W3QqAMAiF21X1/i/cTZAMf45nWglCDO3TzenG9sgoVEsQm0hYX8k9m7iajeQeTVzLz9P9VuvsrFxQbiamLCPLRf0Z/h/qWf7H28/onjLnK2tJ09X98biZPhTd+ahmM3FKYe48y0X7sOZbfV4ol42ZYckc5xg8P20Njdfrr935evFUs6I96eIiNkivi2Z3FZeRinqLfDLrHrdCWO48i5CYVnrmmL7RWbQib/Zni6u9O6RNZe5f5+u9bToUqaUuvQDA3OyFEA4AAA==
   </data>
  </layer>
 </map>

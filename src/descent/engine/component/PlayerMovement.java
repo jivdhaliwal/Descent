@@ -34,7 +34,7 @@ public class PlayerMovement extends Component {
     {
         this.id = id;
         gravity=-0.35f;
-        maxGravity=-0.9f;
+        maxGravity=-2.0f;
         jumpSpeed=0.35f;
     }
 
@@ -91,7 +91,7 @@ public class PlayerMovement extends Component {
                     position.x += 0.1f * delta;
                     entity.getCollisionPoly().setX(position.x);
                 }
-                inputCounter=15;
+                inputCounter=13;
             }
             if (input.isKeyDown(Input.KEY_RIGHT)) {
                 position.x += 0.1f * delta;
@@ -100,7 +100,7 @@ public class PlayerMovement extends Component {
                     position.x -= 0.1f * delta;
                     entity.getCollisionPoly().setX(position.x);
                 }
-                inputCounter=15;
+                inputCounter=13;
             }
 
             if (input.isKeyDown(Input.KEY_U)) {

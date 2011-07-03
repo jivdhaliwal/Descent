@@ -44,13 +44,15 @@ public class GameplayState extends BasicGameState {
         return 1;
     }
 
+    @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.stateID = stateID;
         map = new TiledMap("levels/des1.tmx");
         collisionBlocks = new ArrayList<Polygon>();
         setHealthBlocks(new ArrayList<Rectangle>());
         TILESIZE = map.getTileHeight();
         generateCollisionBlocks(map);
-        generateHealthBlocks(map);
+        generateSpikeBlocks(map);
         playerSprite = new Image("sprites/player.png");
         
         player = new Entity(sbg);
@@ -99,10 +101,10 @@ public class GameplayState extends BasicGameState {
 
         // draw other entities here if there were any
         player.render(gc, sbg, gr);
-        for(Rectangle block:getHealthBlocks()) {
-            gr.setColor(Color.green);
-            gr.draw(block);
-        }
+//        for(Rectangle block:getSpikeBlocks()) {
+//            gr.setColor(Color.green);
+//            gr.draw(block);
+//        }
 //        for(Polygon block:collisionBlocks) {
 //            gr.setColor(Color.yellow);
 //            gr.draw(block);
@@ -151,16 +153,16 @@ public class GameplayState extends BasicGameState {
         
     }
     
-    private void generateHealthBlocks(TiledMap map) {
+    private void generateSpikeBlocks(TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 0);
+                int tileID = map.getTileId(x, y, 1);
 
                 String value = map.getTileProperty(tileID, "Type", "false");
-                if ("health".equals(value)) {
+                if ("spike".equals(value)) {
                     int squareX = x*TILESIZE;
                     int squareY = y*TILESIZE;
-                    getHealthBlocks().add(new Rectangle(squareX, squareY, 7, 7));
+                    getSpikeBlocks().add(new Rectangle(squareX, squareY+6, 9, 2));
                 }
             }
         }
@@ -176,7 +178,7 @@ public class GameplayState extends BasicGameState {
     /**
      * @return the healthBlocks
      */
-    public ArrayList<Rectangle> getHealthBlocks() {
+    public ArrayList<Rectangle> getSpikeBlocks() {
         return healthBlocks;
     }
 
