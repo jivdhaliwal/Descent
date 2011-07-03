@@ -25,18 +25,21 @@ public class PlayerMovement extends Component {
     
     private int gravityCounter;
     private int inputCounter;
+    private int jumpCounter;
     
     private float jumpSpeed,gravity;
     private boolean isJumping;
     private final float maxGravity;
+    private final int maxJumpTime;
 
     public PlayerMovement( String id )
     {
         this.id = id;
         gravity=-0.0015f;
         maxGravity=-0.2f;
-        jumpSpeed=0.33f;
+        jumpSpeed=0.18f;
         velocityY=gravity;
+        maxJumpTime=200;
         isJumping=true;
     }
 
@@ -75,16 +78,14 @@ public class PlayerMovement extends Component {
         if(inputCounter<0) {
             
         
-            if (input.isKeyPressed(Input.KEY_UP) && !isJumping) {
-                velocityY = jumpSpeed;
+            if (( input.isKeyDown(Input.KEY_UP)|| input.isKeyDown(Input.KEY_SPACE) ) && !isJumping) {
+                jumpCounter=maxJumpTime;
                 isJumping = true;
-                inputCounter=10;
-//            position.y -= 0.1f*delta;
-//            entity.getCollisionPoly().setY(position.y);
-//            if(entity.blocked()) {
-//                position.y += 0.1f*delta;
-//                entity.getCollisionPoly().setY(position.y);
-//            }
+            }
+            if (( input.isKeyDown(Input.KEY_UP)|| input.isKeyDown(Input.KEY_SPACE) )) {
+                jumpCounter-=delta;
+            } else {
+                jumpCounter=-1;
             }
             if (input.isKeyDown(Input.KEY_LEFT)) {
                 position.x -= 0.1f * delta;
@@ -125,22 +126,19 @@ public class PlayerMovement extends Component {
                 inputCounter=10;
             }
 
-            if (input.isKeyPressed(Input.KEY_SPACE) && !isJumping) {
-                velocityY = jumpSpeed;
-                isJumping = true;
-                inputCounter=10;
-            }
         }
 
         if(gravityCounter<0) {
+            
+            if(jumpCounter>0) {
+                velocityY = jumpSpeed;
+            }
             
             if (isJumping && (velocityY > maxGravity)) {
                 velocityY += gravity*delta;
             } else {
                 if(isJumping){
                     velocityY = maxGravity;
-                } else {
-                    velocityY = 0f;
                 }
             }
             position.y -= velocityY*delta;
@@ -179,7 +177,7 @@ public class PlayerMovement extends Component {
         }
         
         
-        
+        System.out.println(jumpCounter);
         entity.setPosition(position);
         entity.getCollisionPoly().setLocation(position);
         
