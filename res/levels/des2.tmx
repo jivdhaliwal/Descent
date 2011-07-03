@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="8" tileheight="8">
+ <tileset firstgid="1" name="descentTiles" tilewidth="8" tileheight="8">
+  <image source="descentTiles.png" width="48" height="16"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="collision"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DQQ0AAAwDoXvXv+AJGSSsmqqqqu8erlNlLBAOAAA=
+  </data>
+ </layer>
+ <layer name="map" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkoD9ghOJRe0ftHbV31N5Re0ftHbV31N5Re0ftHc72MqJhQvK4zCbFXmqGy1AJ5+Fi70BgAA59HOcQDgAA
+  </data>
+ </layer>
+</map>

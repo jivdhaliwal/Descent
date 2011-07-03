@@ -33,9 +33,11 @@ public class PlayerMovement extends Component {
     public PlayerMovement( String id )
     {
         this.id = id;
-        gravity=-0.35f;
-        maxGravity=-2.0f;
-        jumpSpeed=0.35f;
+        gravity=-0.0015f;
+        maxGravity=-0.2f;
+        jumpSpeed=0.33f;
+        velocityY=gravity;
+        isJumping=true;
     }
 
     public float getSpeed()
@@ -74,7 +76,7 @@ public class PlayerMovement extends Component {
             
         
             if (input.isKeyPressed(Input.KEY_UP) && !isJumping) {
-                velocityY = 5.5f;
+                velocityY = jumpSpeed;
                 isJumping = true;
                 inputCounter=10;
 //            position.y -= 0.1f*delta;
@@ -124,46 +126,57 @@ public class PlayerMovement extends Component {
             }
 
             if (input.isKeyPressed(Input.KEY_SPACE) && !isJumping) {
-                velocityY = 5.5f;
+                velocityY = jumpSpeed;
                 isJumping = true;
                 inputCounter=10;
             }
         }
 
         if(gravityCounter<0) {
-            if (velocityY > maxGravity) {
-                velocityY += gravity;
+            
+            if (isJumping && (velocityY > maxGravity)) {
+                velocityY += gravity*delta;
             } else {
-                velocityY = maxGravity;
+                if(isJumping){
+                    velocityY = maxGravity;
+                } else {
+                    velocityY = 0f;
+                }
             }
-            position.y -= velocityY;
+            position.y -= velocityY*delta;
             entity.getCollisionPoly().setY(position.y);
 
             if (entity.blocked()) {
                 if (velocityY == maxGravity) {
                     isJumping = false;
                 }
-                position.y += velocityY;
+                position.y += velocityY*delta;
                 entity.getCollisionPoly().setY(position.y);
-            } else if (velocityY < 0) {
+            } else {
                 isJumping = true;
+            }
+            
+            if(isJumping) {
+                position.y += 0.1f * delta;
+                entity.getCollisionPoly().setY(position.y);
+                if (entity.blocked()) {
+                    isJumping=false;
+                    velocityY=0;
+                } 
+                position.y -= 0.1f * delta;
+                entity.getCollisionPoly().setY(position.y);
+            }
+            
+            if(!isJumping) {
+                position.y += 0.05f * delta;
+                entity.getCollisionPoly().setY(position.y);
+                if (entity.blocked()) {
+                    position.y -= 0.05f * delta;
+                    entity.getCollisionPoly().setY(position.y);
+                }
             }
             gravityCounter=10;
         }
-        
-        // TODO Fix the wall jumping
-        
-        // Handles wall jumping
-//        entity.getCollisionPoly().setX((position.x-3f));
-//        if(entity.blocked()) {
-//            isJumping=false;
-//        } else {
-//            entity.getCollisionPoly().setX(position.x+3f);
-//            if(entity.blocked()){
-//                isJumping=false;
-//            }
-//        }
-//        entity.getCollisionPoly().setX(position.x);
         
         
         
@@ -174,6 +187,21 @@ public class PlayerMovement extends Component {
 
         entity.setScale(scale);
 
+    }
+
+    private boolean onGround(Vector2f position, int delta) {
+        position.y += 0.001f * delta;
+        entity.getCollisionPoly().setY(position.y);
+        if (entity.blocked()) {
+            position.y -= 0.001f * delta;
+            entity.getCollisionPoly().setY(position.y);
+            return true;
+        } else {
+            position.y -= 0.001f * delta;
+            entity.getCollisionPoly().setY(position.y);
+            return false;
+        }
+        
     }
 
 }
