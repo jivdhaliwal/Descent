@@ -18,7 +18,7 @@ import descent.engine.entity.Entity;
 
 public class GameplayState extends BasicGameState {
 
-    int stateID = -1;
+    int stateID = 1;
     
     TiledMap map;
     public static int TILESIZE;
@@ -35,8 +35,7 @@ public class GameplayState extends BasicGameState {
     private int leftOffsetInTiles;
     
 
-    GameplayState(int stateID) {
-        this.stateID = stateID;
+    GameplayState() {
     }
 
     @Override
@@ -46,7 +45,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.stateID = stateID;
+        gc.setShowFPS(false);
         map = new TiledMap("levels/des1.tmx");
         collisionBlocks = new ArrayList<Polygon>();
         setHealthBlocks(new ArrayList<Rectangle>());

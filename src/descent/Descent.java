@@ -25,18 +25,19 @@ public class Descent extends StateBasedGame
 
      
 
-     public Descent(String title) throws SlickException
+     public Descent() throws SlickException
      {
           super(title);
 
-          this.addState(new GameplayState(GAMEPLAYSTATE));
+          this.addState(new GameplayState());
           this.enterState(GAMEPLAYSTATE);
+          
           
      }
 
      public static void main(String[] args) throws SlickException
      {
-          AppGameContainer app = new AppGameContainer(new ScalableGame(new Descent(title),width,height));
+          AppGameContainer app = new AppGameContainer(new ScalableGame(new Descent(),width,height));
 
           app.setDisplayMode((int)(width), (int)(height), fullscreen);
           app.setSmoothDeltas(true);
@@ -47,6 +48,7 @@ public class Descent extends StateBasedGame
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        
     }
 
     
