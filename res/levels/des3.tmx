@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="8" tileheight="8">
+<map version="1.0" orientation="orthogonal" width="60" height="40" tilewidth="8" tileheight="8">
  <tileset firstgid="1" name="descentTiles" tilewidth="8" tileheight="8">
   <image source="descentTiles.png" width="48" height="16"/>
   <tile id="0">
@@ -46,19 +46,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="collision" width="30" height="30">
+ <layer name="collision" width="60" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3NMQEAAAwCIAOsf97F8BAKkHRd+QcAAFj1/NvIGBAOAAA=
+   H4sIAAAAAAAAC+3OAQ0AAAgDoAewf15jfFNIQMIX0w4AAAAAAAAAAMAxC6k1o0aAJQAA
   </data>
  </layer>
- <layer name="background" width="30" height="30">
+ <layer name="background" width="60" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3DQQ0AAAwDoXvXv+AJGSSsmqqqqu8erlNlLBAOAAA=
+   H4sIAAAAAAAAC+3DMQ0AAAwEoZvfv+Bq6A4Jq6aqqqqqqqqqqur7AUhDQX6AJQAA
   </data>
  </layer>
- <layer name="map" width="30" height="30">
+ <layer name="map" width="60" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NkoD9ghOKhYC813DrY/Uttt5FiLzXDhhEPpiWglh30SJu8SJhcQKq9/Gh8gUFkLzFmDhX/ggAfEsZnLrn2UpKnCOkjNi7IsZeQ/GAunwejveSUsaTaS63yeyiH86i9w8deQvmF2DxFir3UDJehEs4DYS8vA3XaVsj2DgQGADlefHoQDgAA
+   H4sIAAAAAAAAC+WZUQuDMAyE9U0fpv7/XzuEFbpwSS9p7JQdBJyNvXy2uq6bp2ma/zBqXeWxBX22T/Qw7YN5JSvrsxH5SOsPeTV58z1axGcv70s5jrJqPhm8qK8reeXcLXOr5cMyRObWlbxSZW5ZPhrj03hZn9b5p/DKfpEPynsSLzM/NV6tn9G8UZ+78Mo+tPPWWHrHmfVH+SN5S1jnkA9aP3p4tdxRvCgy5jN77Qhei5n18fIyNaG8FeRGeBHzFffVul/lPPrdUbSI3Iw6IvOo1Jgxny2hvg6lnakjylv3a/kg7Y32Vr135fWKrWMUL+pb80EsGayjx3ebvvv28GbV1cNrvRsZRXh7I8rLSO4ZIQ7kY/nemVfuGTE+Ld878MrfVjJegLlck8GrqZWbMb6bCC1f4z0DPQcRXnSd1tbyYlWPMVp3olzmOUB9MLVrbR4fS55xaeXIuVNCXm/1qbWxNbPc9TNufY+hdwErD1fPfg4jZt2L6rgjL1Nbi3cGedGwas/mZZ5NS6N4rZpYn2PCsjzrPYMs3trjSl5LzJw6kni1NVSEV55n5eWVaxb22PJlubyq+0HrjCKLN0vs2K9V9HpY9xitGzIk/dAavs5Zqujx8j7nPUL7r2fsn7ajkYdC+2/B8z5hhTy041No/7XwLhWvlvcP8QbyB5YpgCUAAA==
   </data>
  </layer>
 </map>

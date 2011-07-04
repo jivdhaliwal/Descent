@@ -17,7 +17,17 @@
     <property name="Type" value="checkpoint"/>
    </properties>
   </tile>
+  <tile id="11">
+   <properties>
+    <property name="Type" value="start"/>
+   </properties>
+  </tile>
  </tileset>
+ <layer name="collision" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NMQEAAAwCIAOsf97F8BAKkHRd+QcAAFj1/NvIGBAOAAA=
+  </data>
+ </layer>
  <layer name="background" width="30" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3DQQ0AAAwDoXvXv+AJGSSsmqqqqu8erlNlLBAOAAA=

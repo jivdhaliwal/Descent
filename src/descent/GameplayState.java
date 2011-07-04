@@ -49,7 +49,7 @@ public class GameplayState extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         gc.setShowFPS(false);
-        map = new TiledMap("levels/des1.tmx");
+        map = new TiledMap("levels/des3.tmx");
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
         playerSprite = new Image("sprites/player.png");
@@ -59,7 +59,7 @@ public class GameplayState extends BasicGameState {
         player.AddComponent(new PlayerMovement("PlayerMovement"));
 //        player.setCollisionPoly(new Polygon(new float[]{0,0,10,0,10,14,0,14}));
         player.setCollisionPoly(new Polygon(new float[]{0,0,9,0,9,11,0,11}));
-        player.setPosition(new Vector2f(2*8,2*8));
+        player.setPosition(CollisionBlocks.getInstance().getStartPoint());
         player.getCollisionPoly().setLocation(player.getPosition());
         player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
         

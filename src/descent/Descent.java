@@ -10,8 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Descent extends StateBasedGame
 {
-     static int height = 30*8;
-     static int width = 30*8;
+     static int height = 40*8;
+     static int width = 60*8;
 
      static boolean fullscreen = false;
 
@@ -39,7 +39,7 @@ public class Descent extends StateBasedGame
      {
           AppGameContainer app = new AppGameContainer(new ScalableGame(new Descent(),width,height));
 
-          app.setDisplayMode((int)(width), (int)(height), fullscreen);
+          app.setDisplayMode((int)(width)*2, (int)(height)*2, fullscreen);
           app.setSmoothDeltas(true);
           app.setTargetFrameRate(fpslimit);
           app.setShowFPS(showFPS);
