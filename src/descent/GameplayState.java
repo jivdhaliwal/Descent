@@ -17,28 +17,36 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import descent.engine.component.PlayerMovement;
 import descent.engine.entity.Entity;
+import java.io.File;
+import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
 public class GameplayState extends BasicGameState {
 
     int stateID = 1;
-    
-    TiledMap map;
+    private TiledMap map;
     public static int TILESIZE;
-    
     private Entity player;
     private Image playerSprite;
-    
     private ArrayList<Polygon> collisionBlocks;
     private ArrayList<Rectangle> spikeBlocks;
     private ArrayList<Rectangle> checkpoints;
-    
     private int widthInTiles;
     private int heightInTiles;
     private int topOffsetInTiles;
     private int leftOffsetInTiles;
     
+    //Particle System vars
+//    private ParticleSystem particleSys;
+//    private ConfigurableEmitter smokeEmitter;
+//    PlayerCheckPoint checkpointComp;
+    
+    int emitterPosCounter;
+    private Image background;
 
     GameplayState() {
+        
     }
 
     @Override
@@ -48,42 +56,59 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        gc.setShowFPS(false);
-        map = new TiledMap("levels/des3.tmx");
+        gc.setShowFPS(true);
+        map = new TiledMap("levels/1_1.tmx");
+        background = new Image("levels/backgrounds/background1.png");
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
         playerSprite = new Image("sprites/player.png");
-        
+
         player = new Entity(sbg);
         player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
         player.AddComponent(new PlayerMovement("PlayerMovement"));
 //        player.setCollisionPoly(new Polygon(new float[]{0,0,10,0,10,14,0,14}));
-        player.setCollisionPoly(new Polygon(new float[]{0,0,9,0,9,11,0,11}));
+        player.setCollisionPoly(new Polygon(new float[]{0, 0, 11, 0, 11, 14, 0, 14}));
         player.setPosition(CollisionBlocks.getInstance().getStartPoint());
         player.getCollisionPoly().setLocation(player.getPosition());
         player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
-        
-        
+
+
         widthInTiles = gc.getWidth() / TILESIZE;
         heightInTiles = gc.getHeight() / TILESIZE;
         topOffsetInTiles = heightInTiles / 2;
         leftOffsetInTiles = widthInTiles / 2;
+
+//        particleSys = new ParticleSystem(image);
+//        checkpointComp = (PlayerCheckPoint) player.getComponent("PlayerCheckPoint");
+        
+//        try {
+//            File xmlFile = new File("res/emitters/smoke.xml");
+//            smokeEmitter = ParticleIO.loadEmitter(xmlFile);
+//        } catch (Exception e) {
+//            System.out.println("Exception: " + e.getMessage());
+//            e.printStackTrace();
+//            System.exit(0);
+//        }
+//
+//        particleSys.addEmitter(smokeEmitter);
+
+        gc.setMinimumLogicUpdateInterval(15);
+        gc.setMaximumLogicUpdateInterval(20);
         
     }
 
+    /**
+     * @param map the map to set
+     */
+    public void setMap(TiledMap map) {
+        this.map = map;
+    }
+    
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics gr) throws SlickException {
-        
-        map.render(0,0);
+        background.draw();
+        map.render(0,0,2,2,64*10,48*10,1,true);
         player.render(gc, sbg, gr);
-//        int playerTileX = (int) player.getTilePosition().x;
-//        int playerTileY = (int) player.getTilePosition().y;
-//
-//        // caculate the offset of the player from the edge of the tile. As the player moves around this
-//        // varies and this tells us how far to offset the tile based rendering to give the smooth
-//        // motion of scrolling
-//        int playerTileOffsetX = (int) ((playerTileX - (player.getPosition().x/TILESIZE)) * TILESIZE);
-//        int playerTileOffsetY = (int) ((playerTileY - (player.getPosition().y/TILESIZE)) * TILESIZE);
 
 //        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
 //            gr.setColor(Color.green);
@@ -97,24 +122,33 @@ public class GameplayState extends BasicGameState {
 //            gr.setColor(Color.blue);
 //            gr.draw(block);
 //        }
-        
-        
-        
-        
+
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        Input i = gc.getInput();
         
-        if(i.isKeyPressed(Input.KEY_R)) {
+        emitterPosCounter-=delta;
+        
+//        particleSys.update(delta);
+        Input i = gc.getInput();
+
+        if (i.isKeyPressed(Input.KEY_R)) {
             gc.reinit();
         }
-        if(!player.isDead()) {
-            player.update(gc, sbg, delta);
-        }
-    }
-    
-    
 
+        player.update(gc, sbg, delta);
+        
+//        if(emitterPosCounter<0){
+//            if (checkpointComp.getCurrentCheckpoint() != null) {
+//                smokeEmitter.setPosition(
+//                        checkpointComp.getCurrentCheckpoint().getX() - 2,
+//                        checkpointComp.getCurrentCheckpoint().getY() - 4);
+//            }
+//            emitterPosCounter=100;
+//        }
+
+    }
+
+    
 }

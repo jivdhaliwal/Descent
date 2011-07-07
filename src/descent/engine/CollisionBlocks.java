@@ -24,6 +24,9 @@ public class CollisionBlocks {
     private ArrayList<Rectangle> checkpoints;
     private final int TILESIZE;
     private Vector2f startPoint;
+    
+    // Offset to compensate for resized map
+    private int mapOffset = - (2*GameplayState.TILESIZE);
 
     private CollisionBlocks() {
         this.TILESIZE = GameplayState.TILESIZE;
@@ -43,14 +46,16 @@ public class CollisionBlocks {
 
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 2);
+                int tileID = map.getTileId(x, y, 1);
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("collision".equals(value)) {
-                    int squareX = x * TILESIZE;
-                    int squareY = y * TILESIZE;
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
                     wallBlocks.add(new Polygon(new float[]{squareX, squareY,
-                                squareX + TILESIZE, squareY, squareX + TILESIZE, squareY + TILESIZE, squareX, squareY + TILESIZE}));
+                                squareX + TILESIZE, squareY, 
+                                squareX + TILESIZE, squareY + TILESIZE, 
+                                squareX, squareY + TILESIZE}));
                 }
             }
         }
@@ -60,13 +65,13 @@ public class CollisionBlocks {
     private void generateSpikeBlocks(TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 2);
+                int tileID = map.getTileId(x, y, 1);
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("spike".equals(value)) {
-                    int squareX = x * TILESIZE;
-                    int squareY = y * TILESIZE;
-                    spikeBlocks.add(new Rectangle(squareX+2, squareY+1 , 6, 6));
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
+                    spikeBlocks.add(new Rectangle(squareX+2, squareY+1,6, 6));
                 }
             }
         }
@@ -75,12 +80,12 @@ public class CollisionBlocks {
     private void generateCheckpoints(TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 2);
+                int tileID = map.getTileId(x, y, 1);
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("checkpoint".equals(value)) {
-                    int squareX = x * TILESIZE;
-                    int squareY = y * TILESIZE;
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
                     checkpoints.add(new Rectangle(squareX + 4, squareY-4, 2, 12));
                 }
             }
@@ -94,8 +99,8 @@ public class CollisionBlocks {
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("start".equals(value)) {
-                    int squareX = x * TILESIZE;
-                    int squareY = y * TILESIZE;
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
                     startPoint = new Vector2f(squareX,squareY);
                     break;
                 }

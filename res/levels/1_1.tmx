@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="68" height="52" tilewidth="10" tileheight="10">
+ <tileset firstgid="1" name="10pixTiles" tilewidth="10" tileheight="10">
+  <image source="10pixTiles.PNG" width="60" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="collision"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Type" value="checkpoint"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Type" value="end"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Type" value="start"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="10pixSpikes" tilewidth="10" tileheight="10">
+  <image source="10pixSpikes.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Type" value="spike"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="68" height="52">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OAQ0AAAgDoAewf15j3DlIQAIAAAAAAAAAAAAAAFwx7QAAPLIJhMs3QDcAAA==
+  </data>
+ </layer>
+ <layer name="map" width="68" height="52">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2ZyQ7DMAhEE6n//809VUosLxhmMHYZiUOrmtivbEk+13V90tIG9u9KHm8lj7eSx1s78riJvpPHWzvyYErKo/efMP8vbyF4nCQ0Dy9urOuw4mPXeNo1X1bHB3MPGkXgwdrH/fC7mvkJ84emtrXWnMJjxKQWf7U1bB6SvXpIugc0jyjn18rCY+dzt2Ttt6x+s0rWfJmZ46PN/DWheCDPIPHFqlMR+620dz4/o9h45csKaThFjI9ZzcZTT0weXrOIpd6U37F5eKyVcpf8ZsXzoJm9s/u0V3xoeZQcvOs1a15HnQPhJ0o9jSZ2PdXm62yt9NSq+1tEjYw0r6NqnWY2Z8rCA6WWr5K5R+5Eqaez81SPoeW6UXj8ZD3nDjyscc7sRwwe3j1RWm80vlbM6x7rtYrKg3XN0bvRlfVUc8+mzQeP91F3w0Z7Q/tAyjM+emdFzLsIVt75os0Rr2chJQ/Uc7ddpeFxsmo8JHaqSh5paTX7ArUaId5ANwAA
+  </data>
+ </layer>
+</map>

@@ -27,9 +27,9 @@ public class PlayerCheckPoint extends Component{
         checkCheckpointCollision();
         if(checkSpikeCollision()) {
             entity.setPosition(new Vector2f(
-                    currentCheckpoint.getX(),currentCheckpoint.getY()));
+                    getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
             entity.getCollisionPoly().setLocation(new Vector2f(
-                    currentCheckpoint.getX(),currentCheckpoint.getY()));
+                    getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
 //            entity.setPosition(new Vector2f(8f,16f));
 //            entity.getCollisionPoly().setLocation(new Vector2f(8f,16f));
         }
@@ -52,6 +52,13 @@ public class PlayerCheckPoint extends Component{
             }
         }
         
+    }
+
+    /**
+     * @return the currentCheckpoint
+     */
+    public Rectangle getCurrentCheckpoint() {
+        return currentCheckpoint;
     }
     
 }

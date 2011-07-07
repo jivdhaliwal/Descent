@@ -37,7 +37,7 @@ public class PlayerMovement extends Component {
         this.id = id;
         gravity=-0.0015f;
         maxGravity=-0.2f;
-        jumpSpeed=0.18f;
+        jumpSpeed=0.225f;
         velocityY=gravity;
         maxJumpTime=200;
         isJumping=true;
