@@ -1,0 +1,10 @@
+<Worlds>
+	<World name="0">
+		<Level name="0" path="levels/1_0.tmx"/>
+		<Level name="1" path="levels/1_1.tmx"/>
+	</World>
+	<World name="1">
+		<Level name="0" path="levels/1_0.tmx"/>
+		<Level name="1" path="levels/1_1.tmx"/>
+	</World>
+</Worlds>

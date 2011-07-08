@@ -5,6 +5,7 @@
 package descent;
 
 import descent.engine.CollisionBlocks;
+import descent.engine.LevelLoader;
 import descent.engine.component.ImageRenderComponent;
 import descent.engine.component.PlayerCheckPoint;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import descent.engine.component.PlayerMovement;
 import descent.engine.entity.Entity;
+import java.util.logging.Level;
 
 public class GameplayState extends BasicGameState {
 
@@ -51,8 +53,9 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        LevelLoader levelLoader = new LevelLoader();
         gc.setShowFPS(false);
-        map = new TiledMap("levels/1_1.tmx");
+        map = levelLoader.getLevelMap(0, 0);
         background = new Image("levels/backgrounds/background1.png");
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
@@ -104,6 +107,7 @@ public class GameplayState extends BasicGameState {
         background.draw();
         map.render(0,0,2,2,64*10,48*10,1,true);
         player.render(gc, sbg, gr);
+        
 //
 //        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
 //            gr.setColor(Color.green);
