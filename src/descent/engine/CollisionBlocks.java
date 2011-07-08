@@ -71,7 +71,7 @@ public class CollisionBlocks {
                 if ("spike".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
-                    spikeBlocks.add(new Rectangle(squareX+2, squareY+1,6, 6));
+                    spikeBlocks.add(new Rectangle(squareX+3, squareY+2,7, 7));
                 }
             }
         }
@@ -86,7 +86,7 @@ public class CollisionBlocks {
                 if ("checkpoint".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
-                    checkpoints.add(new Rectangle(squareX + 4, squareY-4, 2, 12));
+                    checkpoints.add(new Rectangle(squareX + 5, squareY-6, 2, 15));
                 }
             }
         }

@@ -11,16 +11,11 @@ import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import descent.engine.component.PlayerMovement;
 import descent.engine.entity.Entity;
-import java.io.File;
-import org.newdawn.slick.particles.ConfigurableEmitter;
-import org.newdawn.slick.particles.ParticleIO;
-import org.newdawn.slick.particles.ParticleSystem;
 
 public class GameplayState extends BasicGameState {
 
@@ -56,7 +51,7 @@ public class GameplayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        gc.setShowFPS(true);
+        gc.setShowFPS(false);
         map = new TiledMap("levels/1_1.tmx");
         background = new Image("levels/backgrounds/background1.png");
         TILESIZE = map.getTileHeight();
@@ -109,7 +104,7 @@ public class GameplayState extends BasicGameState {
         background.draw();
         map.render(0,0,2,2,64*10,48*10,1,true);
         player.render(gc, sbg, gr);
-
+//
 //        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
 //            gr.setColor(Color.green);
 //            gr.draw(block);
