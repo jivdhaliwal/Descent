@@ -24,15 +24,14 @@ public class CollisionBlocks {
     private ArrayList<Rectangle> checkpoints;
     private final int TILESIZE;
     private Vector2f startPoint;
+    private Rectangle endPoint;
     
     // Offset to compensate for resized map
     private int mapOffset = - (2*GameplayState.TILESIZE);
+    
 
     private CollisionBlocks() {
         this.TILESIZE = GameplayState.TILESIZE;
-        wallBlocks = new ArrayList<Polygon>();
-        spikeBlocks = new ArrayList<Rectangle>();
-        checkpoints = new ArrayList<Rectangle>();
     }
 
     public static CollisionBlocks getInstance() {
@@ -86,7 +85,7 @@ public class CollisionBlocks {
                 if ("checkpoint".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
-                    checkpoints.add(new Rectangle(squareX + 5, squareY-6, 2, 15));
+                    checkpoints.add(new Rectangle(squareX+1, squareY-6, 10, 15));
                 }
             }
         }
@@ -107,16 +106,37 @@ public class CollisionBlocks {
             }
         }
     }
+    
+    
+    private void getEndPoint(TiledMap map) {
+        for (int x = 0; x < map.getWidth(); x++) {
+            for (int y = 0; y < map.getHeight(); y++) {
+                int tileID = map.getTileId(x, y, 0);
+
+                String value = map.getTileProperty(tileID, "Type", "false");
+                if ("end".equals(value)) {
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
+                    endPoint = new Rectangle(squareX-5, squareY, 20, 10);
+                    break;
+                }
+            }
+        }
+    }
 
     /**
      * @param map the map to set
      */
     public void setMap(TiledMap map) {
         this.map = map;
+        wallBlocks = new ArrayList<Polygon>();
+        spikeBlocks = new ArrayList<Rectangle>();
+        checkpoints = new ArrayList<Rectangle>();
         generateWallBlocks(map);
         generateSpikeBlocks(map);
         generateCheckpoints(map);
         getStartPoint(map);
+        getEndPoint(map);
     }
 
     /**
@@ -145,5 +165,12 @@ public class CollisionBlocks {
      */
     public Vector2f getStartPoint() {
         return startPoint;
+    }
+
+    /**
+     * @return the endPoint
+     */
+    public Rectangle getEndPoint() {
+        return endPoint;
     }
 }

@@ -22,6 +22,7 @@ public class Descent extends StateBasedGame
      static int fpslimit = 60;
 
      public static final int GAMEPLAYSTATE = 1;
+     public static final int MAINMENUSTATE = 0;
 
      
 
@@ -29,8 +30,10 @@ public class Descent extends StateBasedGame
      {
           super(title);
 
-          this.addState(new GameplayState());
-          this.enterState(GAMEPLAYSTATE);
+          this.addState(new MainMenuState());
+          this.enterState(MAINMENUSTATE);
+//          this.addState(new GameplayState());
+//          this.enterState(GAMEPLAYSTATE);
           
           
      }

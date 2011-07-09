@@ -23,6 +23,7 @@ public class GameplayState extends BasicGameState {
 
     int stateID = 1;
     private TiledMap map;
+    int currentWorld, currentLevel;
     public static int TILESIZE;
     private Entity player;
     private Image playerSprite;
@@ -50,12 +51,16 @@ public class GameplayState extends BasicGameState {
     public int getID() {
         return 1;
     }
+    
+    @Override
+    public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        init(gc,sbg);
+    }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        LevelLoader levelLoader = new LevelLoader();
         gc.setShowFPS(false);
-        map = levelLoader.getLevelMap(0, 0);
+        map = LevelLoader.getInstance().getLevelMap(currentWorld,currentLevel);
         background = new Image("levels/backgrounds/background1.png");
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
@@ -98,8 +103,9 @@ public class GameplayState extends BasicGameState {
     /**
      * @param map the map to set
      */
-    public void setMap(TiledMap map) {
-        this.map = map;
+    public void setLevel(int worldNum, int levelNum) {
+        this.currentWorld = worldNum;
+        this.currentLevel = levelNum;
     }
     
     @Override
@@ -121,12 +127,14 @@ public class GameplayState extends BasicGameState {
 //            gr.setColor(Color.blue);
 //            gr.draw(block);
 //        }
+//        
+//        gr.setColor(Color.red);
+//        gr.draw(CollisionBlocks.getInstance().getEndPoint());
 
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
         emitterPosCounter-=delta;
         
 //        particleSys.update(delta);
@@ -138,6 +146,18 @@ public class GameplayState extends BasicGameState {
 
         player.update(gc, sbg, delta);
         
+        
+        if(player.getCollisionPoly().intersects(CollisionBlocks.getInstance().getEndPoint())) {
+            if((currentLevel+1)<LevelLoader.getInstance().getMaxLevels(currentWorld)) {
+                GameplayState gameplaystate = new GameplayState();
+                gameplaystate.setLevel(currentWorld, currentLevel+1);
+                sbg.addState(gameplaystate);
+                sbg.enterState(Descent.GAMEPLAYSTATE);
+                
+            } else {
+                sbg.enterState(Descent.MAINMENUSTATE);
+            }
+        }
 //        if(emitterPosCounter<0){
 //            if (checkpointComp.getCurrentCheckpoint() != null) {
 //                smokeEmitter.setPosition(

@@ -9,11 +9,13 @@ import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 
 /**
- *
+ * Singleton that loads all the worlds and levels 
  * @author Jiv Dhaliwal <jivdhaliwal@gmail.com>
  */
 public class LevelLoader {
 
+    private static LevelLoader levelLoader = null;
+    
     private int maxWorlds;
     
     private ArrayList<ArrayList<String>> worldList;
@@ -31,6 +33,13 @@ public class LevelLoader {
         worldList = new ArrayList<ArrayList<String>>();
         
         loadLevels();
+    }
+    
+    public static LevelLoader getInstance() throws SlickException {
+        if (levelLoader == null) {
+            levelLoader = new LevelLoader();
+        }
+        return levelLoader;
     }
 
     

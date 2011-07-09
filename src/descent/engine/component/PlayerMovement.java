@@ -37,7 +37,7 @@ public class PlayerMovement extends Component {
         this.id = id;
         gravity=-0.0015f;
         maxGravity=-0.2f;
-        jumpSpeed=0.225f;
+        jumpSpeed=0.215f;
         velocityY=gravity;
         maxJumpTime=200;
         isJumping=true;
@@ -145,7 +145,8 @@ public class PlayerMovement extends Component {
             entity.getCollisionPoly().setY(position.y);
 
             if (entity.blocked()) {
-                if (velocityY == maxGravity) {
+                if (velocityY == maxGravity && 
+                        !(input.isKeyDown(Input.KEY_UP)|| input.isKeyDown(Input.KEY_SPACE))) {
                     isJumping = false;
                 }
                 position.y += velocityY*delta;
@@ -157,7 +158,8 @@ public class PlayerMovement extends Component {
             if(isJumping) {
                 position.y += 0.1f * delta;
                 entity.getCollisionPoly().setY(position.y);
-                if (entity.blocked()) {
+                if (entity.blocked()&&
+                        !(input.isKeyDown(Input.KEY_UP)|| input.isKeyDown(Input.KEY_SPACE))) {
                     isJumping=false;
                     velocityY=0;
                 } 
