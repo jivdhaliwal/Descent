@@ -20,6 +20,7 @@ public class CollisionBlocks {
     private TiledMap map;
     
     private ArrayList<Polygon> wallBlocks;
+    private ArrayList<Polygon> onWallBlocks;
     private ArrayList<Rectangle> spikeBlocks;
     private ArrayList<Rectangle> checkpoints;
     private final int TILESIZE;
@@ -51,14 +52,33 @@ public class CollisionBlocks {
                 if ("collision".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
-                    wallBlocks.add(new Polygon(new float[]{squareX, squareY,
+                    wallBlocks.add(new Polygon(new float[]{squareX+1, squareY,
                                 squareX + TILESIZE, squareY, 
-                                squareX + TILESIZE, squareY + TILESIZE, 
-                                squareX, squareY + TILESIZE}));
+                                squareX + TILESIZE, squareY-1 + TILESIZE, 
+                                squareX+1, squareY-1 + TILESIZE}));
                 }
             }
         }
+    }
+    
+    // Collision boxes for checking if player is on top of a wall
+    private void generateOnWallBlocks(TiledMap map) {
 
+        for (int x = 0; x < map.getWidth(); x++) {
+            for (int y = 0; y < map.getHeight(); y++) {
+                int tileID = map.getTileId(x, y, 1);
+
+                String value = map.getTileProperty(tileID, "Type", "false");
+                if ("collision".equals(value)) {
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
+                    onWallBlocks.add(new Polygon(new float[]{squareX+2, squareY-4,
+                                squareX-1 + TILESIZE, squareY-4, 
+                                squareX-1 + TILESIZE, squareY, 
+                                squareX+2, squareY}));
+                }
+            }
+        }
     }
 
     private void generateSpikeBlocks(TiledMap map) {
@@ -130,9 +150,11 @@ public class CollisionBlocks {
     public void setMap(TiledMap map) {
         this.map = map;
         wallBlocks = new ArrayList<Polygon>();
+        onWallBlocks = new ArrayList<Polygon>();
         spikeBlocks = new ArrayList<Rectangle>();
         checkpoints = new ArrayList<Rectangle>();
         generateWallBlocks(map);
+        generateOnWallBlocks(map);
         generateSpikeBlocks(map);
         generateCheckpoints(map);
         getStartPoint(map);
@@ -144,6 +166,13 @@ public class CollisionBlocks {
      */
     public ArrayList<Polygon> getWallBlocks() {
         return wallBlocks;
+    }
+    
+    /**
+     * @return the onWallBlocks
+     */
+    public ArrayList<Polygon> getOnWallBlocks() {
+        return onWallBlocks;
     }
 
     /**

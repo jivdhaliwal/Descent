@@ -162,7 +162,7 @@ public class Entity {
             renderComponent.render(gc, sb, gr);
         }
 
-//        gr.setColor(Color.yellow);
+//        gr.setColor(Color.cyan);
 //        gr.draw(collisionPoly);
     }
 
@@ -190,6 +190,16 @@ public class Entity {
     public boolean blocked() {
         
         for(Polygon collisionBlock:CollisionBlocks.getInstance().getWallBlocks()) {
+            if(collisionPoly.intersects(collisionBlock)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean onTopOfWall() {
+        for(Polygon collisionBlock:CollisionBlocks.getInstance().getOnWallBlocks()) {
             if(collisionPoly.intersects(collisionBlock)) {
                 return true;
             }
