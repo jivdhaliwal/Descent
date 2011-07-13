@@ -36,16 +36,11 @@ public class Entity {
 
     ArrayList<Component> components = null;
     
-    private final StateBasedGame stateBasedGame;
-    private GameplayState gameplayState;
-    
     private Polygon collisionPoly;
     
-    public Entity(StateBasedGame sbg)
+    public Entity()
     {
         
-        this.stateBasedGame = sbg;
-        gameplayState = (GameplayState) sbg.getState(Descent.GAMEPLAYSTATE);
         components = new ArrayList<Component>();
 
         position = new Vector2f(0,0);
@@ -165,14 +160,6 @@ public class Entity {
 //        gr.setColor(Color.cyan);
 //        gr.draw(collisionPoly);
     }
-
-    /**
-     * @return the sbg
-     */
-    public StateBasedGame getStateBasedGame() {
-        return stateBasedGame;
-    }
-
     /**
      * @return the collisionPoly
      */
@@ -207,14 +194,6 @@ public class Entity {
         
         return false;
     }
-
-    /**
-     * @return the gameplayState
-     */
-    public GameplayState getGameplayState() {
-        return gameplayState;
-    }
-    
     
 
 }

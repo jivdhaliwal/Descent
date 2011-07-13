@@ -50,7 +50,7 @@ public class GameplayState extends BasicGameState {
         CollisionBlocks.getInstance().setMap(map);
         playerSprite = new Image("sprites/player.png");
 
-        player = new Entity(sbg);
+        player = new Entity();
         player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
         player.AddComponent(new PlayerMovement("PlayerMovement"));
         player.setCollisionPoly(new Polygon(new float[]{0, 0, 10, 0, 10, 13, 0, 13}));
