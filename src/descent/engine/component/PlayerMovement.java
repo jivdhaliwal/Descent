@@ -39,7 +39,9 @@ public class PlayerMovement extends Component {
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
 
-        isJumping=!entity.onTopOfWall();
+        if(entity.onTopOfWall()){
+            isJumping=false;
+        }
 
         Vector2f position = entity.getPosition();
         
@@ -102,6 +104,8 @@ public class PlayerMovement extends Component {
                 position.y-=velocity_y>>8;
                 entity.getCollisionPoly().setY(position.y);
                 velocity_y=0;
+            } else {
+                isJumping=true;
             }
             gravityCounter=10;
         }
