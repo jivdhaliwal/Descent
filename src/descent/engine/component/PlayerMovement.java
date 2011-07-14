@@ -9,10 +9,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 import descent.GameplayState;
+import descent.engine.CollisionBlocks;
+import org.newdawn.slick.geom.Polygon;
 
 public class PlayerMovement extends Component {
 
     GameplayState gameplayState;
+    
     
     private int inputCounter;
     private int jumpCounter;
@@ -32,14 +35,22 @@ public class PlayerMovement extends Component {
     public PlayerMovement( String id )
     {
         this.id = id;
-      
     }
-
+    
+    public boolean onTopOfWall() {
+        for(Polygon collisionBlock:CollisionBlocks.getInstance().getOnWallBlocks()) {
+            if(entity.getCollisionPoly().intersects(collisionBlock)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
 
-        if(entity.onTopOfWall()){
+        if(onTopOfWall()){
             isJumping=false;
         }
 

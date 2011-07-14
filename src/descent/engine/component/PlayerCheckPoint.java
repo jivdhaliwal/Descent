@@ -1,6 +1,5 @@
 package descent.engine.component;
 
-import descent.GameplayState;
 import descent.engine.CollisionBlocks;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -14,10 +13,12 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class PlayerCheckPoint extends Component{
 
+    
     private ArrayList<Rectangle> checkpoints;
     private Rectangle currentCheckpoint;
     
     public PlayerCheckPoint(String id) {
+        
         this.id = id;
         this.checkpoints = CollisionBlocks.getInstance().getCheckpoints();
     }
@@ -46,9 +47,9 @@ public class PlayerCheckPoint extends Component{
     }
     
     public void checkCheckpointCollision(){
-        for(int i=0;i<CollisionBlocks.getInstance().getCheckpoints().size();i++){
-            if(entity.getCollisionPoly().intersects(CollisionBlocks.getInstance().getCheckpoints().get(i))) {
-                currentCheckpoint = CollisionBlocks.getInstance().getCheckpoints().get(i);
+        for(int i=0;i<checkpoints.size();i++){
+            if(entity.getCollisionPoly().intersects(checkpoints.get(i))) {
+                currentCheckpoint = checkpoints.get(i);
             }
         }
         

@@ -1,8 +1,8 @@
 package descent.engine.component;
 
+import descent.engine.entity.Entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
-import descent.engine.entity.Entity;
 
 
 /**

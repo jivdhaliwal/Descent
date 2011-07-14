@@ -1,28 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package descent;
 
 import descent.engine.CollisionBlocks;
 import descent.engine.LevelLoader;
-import descent.engine.component.ImageRenderComponent;
-import descent.engine.component.PlayerCheckPoint;
+import descent.engine.component.*;
+import descent.engine.entity.Entity;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
-import descent.engine.component.PlayerMovement;
-import descent.engine.entity.Entity;
 
 public class GameplayState extends BasicGameState {
 
     int stateID = 1;
+    
+    Entity player;
+    
     private TiledMap map;
     int currentWorld, currentLevel;
     public static int TILESIZE;
-    private Entity player;
     private Image playerSprite;
     
     private Image background;
@@ -51,11 +47,11 @@ public class GameplayState extends BasicGameState {
         playerSprite = new Image("sprites/player.png");
 
         player = new Entity();
-        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
-        player.AddComponent(new PlayerMovement("PlayerMovement"));
         player.setCollisionPoly(new Polygon(new float[]{0, 0, 10, 0, 10, 13, 0, 13}));
         player.setPosition(CollisionBlocks.getInstance().getStartPoint());
         player.getCollisionPoly().setLocation(player.getPosition());
+        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
+        player.AddComponent(new PlayerMovement("PlayerMovement"));
         player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
 
         gc.setMinimumLogicUpdateInterval(5);

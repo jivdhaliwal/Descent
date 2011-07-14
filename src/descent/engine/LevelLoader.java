@@ -16,8 +16,6 @@ public class LevelLoader {
 
     private static LevelLoader levelLoader = null;
     
-    private int maxWorlds;
-    
     private ArrayList<ArrayList<String>> worldList;
     
     private static XMLElement root;

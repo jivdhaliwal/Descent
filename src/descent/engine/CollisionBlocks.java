@@ -41,6 +41,23 @@ public class CollisionBlocks {
         }
         return collisionBlocks;
     }
+    
+    /**
+     * @param map the map to set
+     */
+    public void setMap(TiledMap map) {
+        this.map = map;
+        wallBlocks = new ArrayList<Polygon>();
+        onWallBlocks = new ArrayList<Polygon>();
+        spikeBlocks = new ArrayList<Rectangle>();
+        checkpoints = new ArrayList<Rectangle>();
+        generateWallBlocks(map);
+        generateOnWallBlocks(map);
+        generateSpikeBlocks(map);
+        generateCheckpoints(map);
+        getStartPoint(map);
+        getEndPoint(map);
+    }
 
     private void generateWallBlocks(TiledMap map) {
 
@@ -142,23 +159,6 @@ public class CollisionBlocks {
                 }
             }
         }
-    }
-
-    /**
-     * @param map the map to set
-     */
-    public void setMap(TiledMap map) {
-        this.map = map;
-        wallBlocks = new ArrayList<Polygon>();
-        onWallBlocks = new ArrayList<Polygon>();
-        spikeBlocks = new ArrayList<Rectangle>();
-        checkpoints = new ArrayList<Rectangle>();
-        generateWallBlocks(map);
-        generateOnWallBlocks(map);
-        generateSpikeBlocks(map);
-        generateCheckpoints(map);
-        getStartPoint(map);
-        getEndPoint(map);
     }
 
     /**

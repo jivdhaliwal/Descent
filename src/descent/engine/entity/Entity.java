@@ -1,60 +1,40 @@
 package descent.engine.entity;
 
-
+import descent.GameplayState;
+import descent.engine.CollisionBlocks;
+import descent.engine.component.Component;
+import descent.engine.component.RenderComponent;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import descent.GameplayState;
-import descent.Descent;
-import descent.engine.CollisionBlocks;
-import descent.engine.component.Component;
-import descent.engine.component.RenderComponent;
 
 /**
- * Entity - A Game object that can interact with other objects and be
- * removed from the game dynamically
  *
  * @author Jiv Dhaliwal <jivdhaliwal@gmail.com>
  */
 public class Entity {
 
-    String id;
-
-    Vector2f position;
-    float scale;
-    float rotation;
-    float health;
-
-    boolean isDead;
-    boolean delete;
-    
-    RenderComponent renderComponent = null;
-
     ArrayList<Component> components = null;
-    
+    private boolean delete;
+    private boolean isDead;
+    private Vector2f position;
+    RenderComponent renderComponent = null;
     private Polygon collisionPoly;
-    
+
     public Entity()
     {
-        
         components = new ArrayList<Component>();
 
         position = new Vector2f(0,0);
-        scale = 1;
-        rotation = 0;
-        
     }
-
-    public void AddComponent(Component component)
-    {
-        if(RenderComponent.class.isInstance(component)) {
-            renderComponent = (RenderComponent)component;
+    
+    public void AddComponent(Component component) {
+        if (RenderComponent.class.isInstance(component)) {
+            renderComponent = (RenderComponent) component;
         }
-
         component.setOwnerEntity(this);
         components.add(component);
     }
@@ -63,75 +43,43 @@ public class Entity {
         components.remove(component);
     }
 
-    public Component getComponent(String id)
-    {
-        for(Component comp : components)
-        {
-            if( comp.getId().equalsIgnoreCase(id) ) {
+    public Component getComponent(String id) {
+        for (Component comp : components) {
+            if (comp.getId().equalsIgnoreCase(id)) {
                 return comp;
             }
         }
-
         return null;
     }
-
-    /*
-     * Returns the exact pixel position of the sprite (only use for rendering)
-     */
-    public Vector2f getPosition()
-    {
-        return position;
+    
+    public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
+        if (renderComponent != null) {
+            renderComponent.render(gc, sb, gr);
+        }
     }
 
+
+    public void update(GameContainer gc, StateBasedGame sb, int delta) {
+        for (Component component : components) {
+            component.update(gc, sb, delta);
+        }
+    }
+    
+    public boolean blocked() {
+        for (Polygon collisionBlock : CollisionBlocks.getInstance().getWallBlocks()) {
+            if (getCollisionPoly().intersects(collisionBlock)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /* Given tilesize and x,y position, return tile position
      *
      * @param tilesize Size of tiles in pixels
      */
-    public Vector2f getTilePosition()
-    {
-        return new Vector2f((int) Math.floor((position.x / GameplayState.TILESIZE)),
-                (int) Math.floor((position.y / GameplayState.TILESIZE)));
-    }
-
-    public float getScale()
-    {
-        return scale;
-    }
-
-    public float getRotation()
-    {
-        return rotation;
-    }
-
-    public float getHealth() {
-        return health;
-    }
-
-    public void killEntity() {
-        isDead=true;
-    }
-
-    public boolean isDead() {
-        return isDead;
-    }
-
-    public void setPosition(Vector2f position)
-    {
-        this.position = new Vector2f(position.x,position.y);
-    }
-
-    public void setRotation(float rotate)
-    {
-        rotation = rotate;
-    }
-
-    public void setScale(float scale)
-    {
-        this.scale = scale;
-    }
-    
-    public void deleteEntity() {
-        delete=true;
+    public Vector2f getTilePosition() {
+        return new Vector2f((int) Math.floor(getPosition().x / GameplayState.TILESIZE), (int) Math.floor(getPosition().y / GameplayState.TILESIZE));
     }
 
     /**
@@ -140,26 +88,42 @@ public class Entity {
     public boolean isDelete() {
         return delete;
     }
-    
-    public void update(GameContainer gc, StateBasedGame sb, int delta)
-    {
-        for(Component component : components)
-        {
-            component.update(gc,sb,delta);
-        }
-        
-        
+
+    /**
+     * @return the isDead
+     */
+    public boolean isDead() {
+        return isDead;
     }
 
-    public void render(GameContainer gc, StateBasedGame sb, Graphics gr)
-    {
-        if(renderComponent != null) {
-            renderComponent.render(gc, sb, gr);
-        }
-
-//        gr.setColor(Color.cyan);
-//        gr.draw(collisionPoly);
+    /**
+     * @return the position
+     */
+    public Vector2f getPosition() {
+        return position;
     }
+
+    /**
+     * @param delete the delete to set
+     */
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    /**
+     * @param isDead the isDead to set
+     */
+    public void setIsDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(Vector2f position) {
+        this.position = new Vector2f(position);
+    }
+
     /**
      * @return the collisionPoly
      */
@@ -173,27 +137,6 @@ public class Entity {
     public void setCollisionPoly(Polygon collisionPoly) {
         this.collisionPoly = collisionPoly;
     }
-    
-    public boolean blocked() {
-        
-        for(Polygon collisionBlock:CollisionBlocks.getInstance().getWallBlocks()) {
-            if(collisionPoly.intersects(collisionBlock)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public boolean onTopOfWall() {
-        for(Polygon collisionBlock:CollisionBlocks.getInstance().getOnWallBlocks()) {
-            if(collisionPoly.intersects(collisionBlock)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
 
+    
 }
