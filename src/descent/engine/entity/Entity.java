@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -22,7 +23,7 @@ public class Entity {
     private boolean isDead;
     private Vector2f position;
     RenderComponent renderComponent = null;
-    private Polygon collisionPoly;
+    private Shape collisionBox;
 
     public Entity()
     {
@@ -56,6 +57,7 @@ public class Entity {
         if (renderComponent != null) {
             renderComponent.render(gc, sb, gr);
         }
+        gr.draw(collisionBox);
     }
 
 
@@ -67,7 +69,7 @@ public class Entity {
     
     public boolean blocked() {
         for (Polygon collisionBlock : CollisionBlocks.getInstance().getWallBlocks()) {
-            if (getCollisionPoly().intersects(collisionBlock)) {
+            if (getCollisionBox().intersects(collisionBlock)) {
                 return true;
             }
         }
@@ -127,15 +129,15 @@ public class Entity {
     /**
      * @return the collisionPoly
      */
-    public Polygon getCollisionPoly() {
-        return collisionPoly;
+    public Shape getCollisionBox() {
+        return collisionBox;
     }
 
     /**
-     * @param collisionPoly the collisionPoly to set
+     * @param collisionBox the collisionPoly to set
      */
-    public void setCollisionPoly(Polygon collisionPoly) {
-        this.collisionPoly = collisionPoly;
+    public void setCollisionBox(Shape collisionBox) {
+        this.collisionBox = collisionBox;
     }
 
     

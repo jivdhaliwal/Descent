@@ -10,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 import descent.GameplayState;
 import descent.engine.CollisionBlocks;
+import descent.engine.entity.Entity;
 import org.newdawn.slick.geom.Polygon;
 
 public class PlayerMovement extends Component {
@@ -39,11 +40,25 @@ public class PlayerMovement extends Component {
     
     public boolean onTopOfWall() {
         for(Polygon collisionBlock:CollisionBlocks.getInstance().getOnWallBlocks()) {
-            if(entity.getCollisionPoly().intersects(collisionBlock)) {
+            if(entity.getCollisionBox().intersects(collisionBlock)) {
                 return true;
             }
         }
         
+        return false;
+    }
+    
+    public boolean blocked() {
+        for (Polygon collisionBlock : CollisionBlocks.getInstance().getWallBlocks()) {
+            if (entity.getCollisionBox().intersects(collisionBlock)) {
+                return true;
+            }
+        }
+        for(Entity platform:CollisionBlocks.getInstance().getPlatforms()) {
+            if(entity.getCollisionBox().intersects(platform.getCollisionBox())) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -77,20 +92,20 @@ public class PlayerMovement extends Component {
             
             if(input.isKeyDown(Input.KEY_LEFT)) {
                 position.x-= hori_velocity>>8;
-                entity.getCollisionPoly().setX(position.x);
-                if (entity.blocked()) {
+                entity.getCollisionBox().setX(position.x);
+                if (blocked()) {
                     position.x += hori_velocity >> 8;
-                    entity.getCollisionPoly().setX(position.x);
+                    entity.getCollisionBox().setX(position.x);
                 }
                 inputCounter=10;
             }
             
             if(input.isKeyDown(Input.KEY_RIGHT)) {
                 position.x+= hori_velocity>>8;
-                entity.getCollisionPoly().setX(position.x);
-                if (entity.blocked()) {
+                entity.getCollisionBox().setX(position.x);
+                if (blocked()) {
                     position.x -= hori_velocity >> 8;
-                    entity.getCollisionPoly().setX(position.x);
+                    entity.getCollisionBox().setX(position.x);
                 }
                 inputCounter=10;
             }
@@ -109,11 +124,11 @@ public class PlayerMovement extends Component {
                 }
             }
             position.y+= velocity_y>>8;
-            entity.getCollisionPoly().setY(position.y);
-            if(entity.blocked()) {
+            entity.getCollisionBox().setY(position.y);
+            if(blocked()) {
                 jumpCounter= -1;
                 position.y-=velocity_y>>8;
-                entity.getCollisionPoly().setY(position.y);
+                entity.getCollisionBox().setY(position.y);
                 velocity_y=0;
             } else {
                 isJumping=true;
@@ -123,7 +138,7 @@ public class PlayerMovement extends Component {
         
         
         entity.setPosition(position);
-        entity.getCollisionPoly().setLocation(position);
+        entity.getCollisionBox().setLocation(position);
         
 
     }

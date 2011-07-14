@@ -6,6 +6,8 @@ import descent.engine.component.*;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -22,6 +24,7 @@ public class GameplayState extends BasicGameState {
     private Image playerSprite;
     
     private Image background;
+    
 
     GameplayState() {
         
@@ -44,20 +47,21 @@ public class GameplayState extends BasicGameState {
         background = new Image("levels/backgrounds/background1.png");
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
-        playerSprite = new Image("sprites/player.png");
-
-        player = new Entity();
-        player.setCollisionPoly(new Polygon(new float[]{0, 0, 10, 0, 10, 13, 0, 13}));
-        player.setPosition(CollisionBlocks.getInstance().getStartPoint());
-        player.getCollisionPoly().setLocation(player.getPosition());
-        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
-        player.AddComponent(new PlayerMovement("PlayerMovement"));
-        player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
+        
+        player = CollisionBlocks.getInstance().getPlayer();
+//        playerSprite = new Image("sprites/player.png");
+//        
+//        player = new Entity();
+//        player.setCollisionBox(new Polygon(new float[]{0, 0, 10, 0, 10, 13, 0, 13}));
+//        player.setPosition(CollisionBlocks.getInstance().getStartPoint());
+//        player.getCollisionBox().setLocation(player.getPosition());
+//        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
+//        player.AddComponent(new PlayerMovement("PlayerMovement"));
+//        player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
 
         gc.setMinimumLogicUpdateInterval(5);
         gc.setMaximumLogicUpdateInterval(20);
-        
-    }
+        }
 
     /**
      * @param map the map to set
@@ -70,26 +74,29 @@ public class GameplayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics gr) throws SlickException {
         background.draw();
-        map.render(0,0,2,2,64*10,48*10,1,true);
+        map.render(0,0,2,2,64*10,48*10,map.getLayerIndex("map"),true);
         player.render(gc, sbg, gr);
         
-//
-//        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
-//            gr.setColor(Color.green);
-//            gr.draw(block);
-//        }
-//        for(Polygon block:CollisionBlocks.getInstance().getWallBlocks()) {
-//            gr.setColor(Color.yellow);
-//            gr.draw(block);
-//        }
-//        for(Polygon block:CollisionBlocks.getInstance().getOnWallBlocks()) {
-//            gr.setColor(Color.yellow);
-//            gr.draw(block);
-//        }
-//        for(Rectangle block:CollisionBlocks.getInstance().getCheckpoints()) {
-//            gr.setColor(Color.blue);
-//            gr.draw(block);
-//        }
+        for(Entity platform:CollisionBlocks.getInstance().getPlatforms()) {
+            platform.render(gc, sbg, gr);
+        }
+        
+        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
+            gr.setColor(Color.green);
+            gr.draw(block);
+        }
+        for(Polygon block:CollisionBlocks.getInstance().getWallBlocks()) {
+            gr.setColor(Color.yellow);
+            gr.draw(block);
+        }
+        for(Polygon block:CollisionBlocks.getInstance().getOnWallBlocks()) {
+            gr.setColor(Color.yellow);
+            gr.draw(block);
+        }
+        for(Rectangle block:CollisionBlocks.getInstance().getCheckpoints()) {
+            gr.setColor(Color.blue);
+            gr.draw(block);
+        }
 
     }
 
@@ -104,8 +111,11 @@ public class GameplayState extends BasicGameState {
 
         player.update(gc, sbg, delta);
         
+        for(Entity platform:CollisionBlocks.getInstance().getPlatforms()) {
+            platform.update(gc, sbg, delta);
+        }
         
-        if(player.getCollisionPoly().intersects(CollisionBlocks.getInstance().getEndPoint())) {
+        if(player.getCollisionBox().intersects(CollisionBlocks.getInstance().getEndPoint())) {
             if((currentLevel+1)<LevelLoader.getInstance().getMaxLevels(currentWorld)) {
                 GameplayState gameplaystate = new GameplayState();
                 gameplaystate.setLevel(currentWorld, currentLevel+1);

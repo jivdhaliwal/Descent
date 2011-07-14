@@ -1,7 +1,14 @@
 package descent.engine;
 
 import descent.GameplayState;
+import descent.engine.component.ImageRenderComponent;
+import descent.engine.component.PlatformMovement;
+import descent.engine.component.PlayerCheckPoint;
+import descent.engine.component.PlayerMovement;
+import descent.engine.entity.Entity;
 import java.util.ArrayList;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
@@ -19,16 +26,21 @@ public class CollisionBlocks {
     private static CollisionBlocks collisionBlocks = null;
     private TiledMap map;
     
+    private Entity player;
+    
     private ArrayList<Polygon> wallBlocks;
     private ArrayList<Polygon> onWallBlocks;
     private ArrayList<Rectangle> spikeBlocks;
     private ArrayList<Rectangle> checkpoints;
+    private ArrayList<Entity> platforms;
     private final int TILESIZE;
     private Vector2f startPoint;
     private Rectangle endPoint;
     
+    
     // Offset to compensate for resized map
     private int mapOffset = - (2*GameplayState.TILESIZE);
+    
     
 
     private CollisionBlocks() {
@@ -45,25 +57,40 @@ public class CollisionBlocks {
     /**
      * @param map the map to set
      */
-    public void setMap(TiledMap map) {
+    public void setMap(TiledMap map) throws SlickException {
         this.map = map;
         wallBlocks = new ArrayList<Polygon>();
         onWallBlocks = new ArrayList<Polygon>();
         spikeBlocks = new ArrayList<Rectangle>();
         checkpoints = new ArrayList<Rectangle>();
-        generateWallBlocks(map);
-        generateOnWallBlocks(map);
-        generateSpikeBlocks(map);
-        generateCheckpoints(map);
-        getStartPoint(map);
-        getEndPoint(map);
+        platforms = new ArrayList<Entity>();
+        generateStartPoint();
+        generateEndPoint();
+        generatePlayer();
+        generateWallBlocks();
+        generateOnWallBlocks();
+        generateSpikeBlocks();
+        generateCheckpoints();
+        generateMovingPlatforms();
+        
+    }
+    
+    private void generatePlayer() throws SlickException {
+        Image playerSprite = new Image("sprites/player.png");
+        player = new Entity();
+        getPlayer().setPosition(getStartPoint());
+        getPlayer().setCollisionBox(new Rectangle(getPlayer().getPosition().x, 
+                getPlayer().getPosition().y, 11,14));
+        getPlayer().AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
+        getPlayer().AddComponent(new PlayerMovement("PlayerMovement"));
+        getPlayer().AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
     }
 
-    private void generateWallBlocks(TiledMap map) {
+    private void generateWallBlocks() {
 
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 1);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("collision".equals(value)) {
@@ -79,11 +106,11 @@ public class CollisionBlocks {
     }
     
     // Collision boxes for checking if player is on top of a wall
-    private void generateOnWallBlocks(TiledMap map) {
+    private void generateOnWallBlocks() {
 
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 1);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("collision".equals(value)) {
@@ -98,10 +125,10 @@ public class CollisionBlocks {
         }
     }
 
-    private void generateSpikeBlocks(TiledMap map) {
+    private void generateSpikeBlocks() {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 1);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("spike".equals(value)) {
@@ -113,10 +140,10 @@ public class CollisionBlocks {
         }
     }
 
-    private void generateCheckpoints(TiledMap map) {
+    private void generateCheckpoints() {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 1);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("checkpoint".equals(value)) {
@@ -128,10 +155,32 @@ public class CollisionBlocks {
         }
     }
     
-    private void getStartPoint(TiledMap map) {
+    private void generateMovingPlatforms() throws SlickException {
+        Image playerSprite = new Image("sprites/player.png");
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 0);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("platforms"));
+
+                String value = map.getTileProperty(tileID, "Type", "false");
+                if ("platform".equals(value)) {
+                    int squareX = (x * TILESIZE)+mapOffset;
+                    int squareY = (y * TILESIZE)+mapOffset;
+                    Entity platform = new Entity();
+                    platform.setPosition(new Vector2f((float)squareX, (float)squareY));
+                    platform.setCollisionBox(new Rectangle(squareX, squareY, TILESIZE, TILESIZE));
+                    platform.getCollisionBox().setLocation(platform.getPosition());
+                    platform.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
+                    platform.AddComponent(new PlatformMovement("PlatformMovement", PlatformMovement.HORI));
+                    platforms.add(platform);
+                }
+            }
+        }
+    }
+    
+    private void generateStartPoint() {
+        for (int x = 0; x < map.getWidth(); x++) {
+            for (int y = 0; y < map.getHeight(); y++) {
+                int tileID = map.getTileId(x, y, map.getLayerIndex("collision"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("start".equals(value)) {
@@ -145,10 +194,10 @@ public class CollisionBlocks {
     }
     
     
-    private void getEndPoint(TiledMap map) {
+    private void generateEndPoint() {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, 0);
+                int tileID = map.getTileId(x, y, map.getLayerIndex("collision"));
 
                 String value = map.getTileProperty(tileID, "Type", "false");
                 if ("end".equals(value)) {
@@ -201,5 +250,19 @@ public class CollisionBlocks {
      */
     public Rectangle getEndPoint() {
         return endPoint;
+    }
+
+    /**
+     * @return the platforms
+     */
+    public ArrayList<Entity> getPlatforms() {
+        return platforms;
+    }
+
+    /**
+     * @return the player
+     */
+    public Entity getPlayer() {
+        return player;
     }
 }

@@ -29,17 +29,17 @@ public class PlayerCheckPoint extends Component{
         if(checkSpikeCollision()) {
             entity.setPosition(new Vector2f(
                     getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
-            entity.getCollisionPoly().setLocation(new Vector2f(
+            entity.getCollisionBox().setLocation(new Vector2f(
                     getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
 //            entity.setPosition(new Vector2f(8f,16f));
-//            entity.getCollisionPoly().setLocation(new Vector2f(8f,16f));
+//            entity.getCollisionBox().setLocation(new Vector2f(8f,16f));
         }
         
     }
     
     public boolean checkSpikeCollision(){
         for(int i=0;i<CollisionBlocks.getInstance().getSpikeBlocks().size();i++){
-            if(entity.getCollisionPoly().intersects(CollisionBlocks.getInstance().getSpikeBlocks().get(i))) {
+            if(entity.getCollisionBox().intersects(CollisionBlocks.getInstance().getSpikeBlocks().get(i))) {
                 return true;
             }
         }
@@ -48,7 +48,7 @@ public class PlayerCheckPoint extends Component{
     
     public void checkCheckpointCollision(){
         for(int i=0;i<checkpoints.size();i++){
-            if(entity.getCollisionPoly().intersects(checkpoints.get(i))) {
+            if(entity.getCollisionBox().intersects(checkpoints.get(i))) {
                 currentCheckpoint = checkpoints.get(i);
             }
         }
