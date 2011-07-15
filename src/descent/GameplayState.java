@@ -81,22 +81,23 @@ public class GameplayState extends BasicGameState {
             platform.render(gc, sbg, gr);
         }
         
-        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
-            gr.setColor(Color.green);
-            gr.draw(block);
-        }
-        for(Polygon block:CollisionBlocks.getInstance().getWallBlocks()) {
-            gr.setColor(Color.yellow);
-            gr.draw(block);
-        }
-        for(Polygon block:CollisionBlocks.getInstance().getOnWallBlocks()) {
-            gr.setColor(Color.yellow);
-            gr.draw(block);
-        }
-        for(Rectangle block:CollisionBlocks.getInstance().getCheckpoints()) {
-            gr.setColor(Color.blue);
-            gr.draw(block);
-        }
+        // Draw collision boxes for debuggins
+//        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
+//            gr.setColor(Color.green);
+//            gr.draw(block);
+//        }
+//        for(Polygon block:CollisionBlocks.getInstance().getWallBlocks()) {
+//            gr.setColor(Color.yellow);
+//            gr.draw(block);
+//        }
+//        for(Polygon block:CollisionBlocks.getInstance().getOnWallBlocks()) {
+//            gr.setColor(Color.yellow);
+//            gr.draw(block);
+//        }
+//        for(Rectangle block:CollisionBlocks.getInstance().getCheckpoints()) {
+//            gr.setColor(Color.blue);
+//            gr.draw(block);
+//        }
 
     }
 

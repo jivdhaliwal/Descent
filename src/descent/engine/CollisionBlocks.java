@@ -156,7 +156,7 @@ public class CollisionBlocks {
     }
     
     private void generateMovingPlatforms() throws SlickException {
-        Image playerSprite = new Image("sprites/player.png");
+        Image playerSprite = new Image("sprites/platform.png");
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 int tileID = map.getTileId(x, y, map.getLayerIndex("platforms"));
@@ -166,7 +166,7 @@ public class CollisionBlocks {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
                     Entity platform = new Entity();
-                    platform.setPosition(new Vector2f((float)squareX, (float)squareY));
+                    platform.setPosition(new Vector2f(squareX, squareY));
                     platform.setCollisionBox(new Rectangle(squareX, squareY, TILESIZE, TILESIZE));
                     platform.getCollisionBox().setLocation(platform.getPosition());
                     platform.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));

@@ -76,7 +76,7 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
     public void componentActivated(AbstractComponent source) {
         if(source == world1Area) {
             GameplayState gameplaystate = new GameplayState();
-            gameplaystate.setLevel(1, 0);
+            gameplaystate.setLevel(0, 0);
             game.addState(gameplaystate);
             game.enterState(Descent.GAMEPLAYSTATE);
         }

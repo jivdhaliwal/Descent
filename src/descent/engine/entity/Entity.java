@@ -57,7 +57,7 @@ public class Entity {
         if (renderComponent != null) {
             renderComponent.render(gc, sb, gr);
         }
-        gr.draw(collisionBox);
+//        gr.draw(collisionBox);
     }
 
 
@@ -67,7 +67,7 @@ public class Entity {
         }
     }
     
-    public boolean blocked() {
+    public boolean touchingWall() {
         for (Polygon collisionBlock : CollisionBlocks.getInstance().getWallBlocks()) {
             if (getCollisionBox().intersects(collisionBlock)) {
                 return true;

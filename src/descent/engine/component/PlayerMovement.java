@@ -44,7 +44,12 @@ public class PlayerMovement extends Component {
                 return true;
             }
         }
-        
+        for(Entity platform:CollisionBlocks.getInstance().getPlatforms()) {
+            PlatformMovement plat2 = (PlatformMovement) platform.getComponent("PlatformMovement");
+            if(entity.getCollisionBox().intersects(plat2.getOnTopCollision())) {
+                return true;
+            }
+        }
         return false;
     }
     

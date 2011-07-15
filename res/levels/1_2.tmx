@@ -7,6 +7,11 @@
     <property name="Type" value="collision"/>
    </properties>
   </tile>
+  <tile id="5">
+   <properties>
+    <property name="Type" value="platform"/>
+   </properties>
+  </tile>
   <tile id="7">
    <properties>
     <property name="Type" value="checkpoint"/>
@@ -49,6 +54,11 @@
  <layer name="collision" width="68" height="52">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3OMQ0AAAgDsP3gXy8mSOBoFTSBpK8DAAAAAAAAAAAAAAAAsKSuA7wxZHqt1kA3AAA=
+  </data>
+ </layer>
+ <layer name="platforms" width="68" height="52">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OIQEAAAgDsCv6R6bCUZgtwRIAAAAA4GK+AwAAAAAAAAAAQGUBRfDqlkA3AAA=
   </data>
  </layer>
  <layer name="map" width="68" height="52">

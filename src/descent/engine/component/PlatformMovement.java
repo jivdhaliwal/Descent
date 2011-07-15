@@ -4,6 +4,7 @@ import descent.GameplayState;
 import descent.engine.CollisionBlocks;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
@@ -32,7 +33,7 @@ public class PlatformMovement extends Component{
     // 256>>8 == 1 pixel per update
     private int velocity = 256;
     // ms before next movement update
-    private int movementRate=10;
+    private int movementRate=30;
     
     private int movementCounter;
     
@@ -47,11 +48,12 @@ public class PlatformMovement extends Component{
         
         direction = LEFT;
         
-        onTopCollision = new Rectangle(0, 0, GameplayState.TILESIZE, 3);
+        onTopCollision = new Rectangle(0, 0, GameplayState.TILESIZE-6, 3);
     }
     
-    private boolean playerOnTop(){
-        if(onTopCollision.intersects(player.getCollisionBox())) {
+    private boolean touchingPlatform() {
+        if (entity.getCollisionBox().intersects(player.getCollisionBox()) || 
+                onTopCollision.intersects(player.getCollisionBox())) {
             return true;
         }
         return false;
@@ -64,13 +66,12 @@ public class PlatformMovement extends Component{
         movementCounter-=delta;
         
         Vector2f position = entity.getPosition();
-        Rectangle platformCollision = (Rectangle) entity.getCollisionBox();
         
         if(movementCounter < 0) {
             if (movement == HORI) {
                 position.x += (velocity * direction) >> 8;
                 entity.getCollisionBox().setX(position.x);
-                if (entity.blocked()) {
+                if (entity.touchingWall()) {
                     position.x -= (velocity * direction) >> 8;
                     entity.getCollisionBox().setX(position.x);
                     direction = direction * -1;
@@ -78,24 +79,38 @@ public class PlatformMovement extends Component{
             } else if (movement == VERT) {
                 position.y += (velocity * direction) >> 8;
                 entity.getCollisionBox().setY(position.y);
-                if (entity.blocked()) {
+                if (entity.touchingWall()) {
                     position.y -= (velocity * direction) >> 8;
                     entity.getCollisionBox().setY(position.y);
                     direction = direction * -1;
                 }
             }
             //Moves the player when on top of a platform
-            if(playerOnTop()){
+            if (touchingPlatform()) {
                 player.setPosition(
-                        new Vector2f(player.getPosition().x+((velocity * direction)>>8),
+                        new Vector2f(player.getPosition().x + ((velocity * direction) >> 8),
                         player.getPosition().y));
+                player.getCollisionBox().setLocation(player.getPosition());
+                if (player.touchingWall()) {
+                    player.setPosition(
+                            new Vector2f(player.getPosition().x - ((velocity * direction) >> 8),
+                            player.getPosition().y));
+                    player.getCollisionBox().setLocation(player.getPosition());
+                }
             }
             movementCounter=movementRate;
         }
         
-        onTopCollision.setLocation(position.x, position.y-3);
+        getOnTopCollision().setLocation(position.x+3, position.y-3);
         entity.setPosition(position);
         entity.getCollisionBox().setLocation(position);
     }
-    
+
+    /**
+     * @return the onTopCollision
+     */
+    public Rectangle getOnTopCollision() {
+        return onTopCollision;
+    }
+
 }
