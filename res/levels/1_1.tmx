@@ -58,7 +58,7 @@
  </layer>
  <layer name="platforms" width="68" height="52">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YMQ0AAAzDsF7jD3kE9leabAS5kwAAAABwmXYAAAAAUOEJAAAAAAD8saUIEk1ANwAA
+   H4sIAAAAAAAAC+3OIQEAAAgDsCv6R6bAHQKzJVgCAAAAQDPfAQAAAAAAAAAAAE4WF+Fe7kA3AAA=
   </data>
  </layer>
  <layer name="map" width="68" height="52">

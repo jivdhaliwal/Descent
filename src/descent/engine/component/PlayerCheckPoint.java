@@ -1,6 +1,7 @@
 package descent.engine.component;
 
 import descent.engine.CollisionBlocks;
+import descent.engine.entity.Entity;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Rectangle;
@@ -43,6 +44,17 @@ public class PlayerCheckPoint extends Component{
                 return true;
             }
         }
+        /*
+         * If the player ends up inside a platform (due to player getting stuck 
+         * between a wall and moving platform), kill the player
+         */
+        for(Entity platform:CollisionBlocks.getInstance().getPlatforms()) {
+            PlatformMovement platMov = (PlatformMovement)platform.getComponent("PlatformMovement");
+            if(entity.getCollisionBox().intersects(platMov.getInsideCollision())) {
+                return true;
+            }
+            
+        }
         return false;
     }
     
@@ -52,7 +64,6 @@ public class PlayerCheckPoint extends Component{
                 currentCheckpoint = checkpoints.get(i);
             }
         }
-        
     }
 
     /**

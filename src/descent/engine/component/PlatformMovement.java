@@ -38,6 +38,7 @@ public class PlatformMovement extends Component{
     private int movementCounter;
     
     private Rectangle onTopCollision;
+    private Rectangle insideCollision;
     
     
     public PlatformMovement(String id, int movement){
@@ -49,6 +50,7 @@ public class PlatformMovement extends Component{
         direction = LEFT;
         
         onTopCollision = new Rectangle(0, 0, GameplayState.TILESIZE-6, 3);
+        insideCollision = new Rectangle(0,0,7, 7);
     }
     
     private boolean touchingPlatform() {
@@ -101,7 +103,8 @@ public class PlatformMovement extends Component{
             movementCounter=movementRate;
         }
         
-        getOnTopCollision().setLocation(position.x+3, position.y-3);
+        onTopCollision.setLocation(position.x+3, position.y-3);
+        insideCollision.setLocation(position.x+2,position.y+2);
         entity.setPosition(position);
         entity.getCollisionBox().setLocation(position);
     }
@@ -111,6 +114,15 @@ public class PlatformMovement extends Component{
      */
     public Rectangle getOnTopCollision() {
         return onTopCollision;
+    }
+
+    /**
+     * @return the insideCollision
+     * This acts like a spike inside platforms to
+     * kill a player if they end up inside a platform
+     */
+    public Rectangle getInsideCollision() {
+        return insideCollision;
     }
 
 }

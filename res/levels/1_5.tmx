@@ -52,24 +52,18 @@
   </tile>
  </tileset>
  <layer name="collision" width="68" height="52">
-  <properties>
-   <property name="Layer" value="collision"/>
-  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OMQkAAAwDsP7z73cySiFRkAQAAAAAAAAAAAAAAACAJdcOjHgqAPP6QDcAAA==
+   H4sIAAAAAAAAC+3OMQ0AAAgDsP3gXy8mSOBoFTSBpK8DAAAAAAAAAAAAAAAAsKSuA7wxZHqt1kA3AAA=
   </data>
  </layer>
  <layer name="platforms" width="68" height="52">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3LsQkAAAgEsa/cf2SXUEFI6rsEAAAAAAAAAAAAAACAz+ro2+4BpjUCkmilQDcAAA==
+   H4sIAAAAAAAAC+3WsQ0AAAjDsE78fzJngFT7gMxJAAAAoMc8aQAAXfwDAAAAAAAAANxYK6m1iUA3AAA=
   </data>
  </layer>
  <layer name="map" width="68" height="52">
-  <properties>
-   <property name="Layer" value="map"/>
-  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3asQqDQBRFQQOW5v9/N61nMSTdFm8O3MpmGcRtPI/jOM1+7DV8Tx5T49F4NB6NR+PReDQejUfj0Xg0Ho1H49F4NB6NR+PReDQejUfj0Xg0Ho1H49F4NB6NR+PReDQejUfj0Xg0Hu3ucf+nbGqrx/RWj2vvcbbn/Wg8mu9pc982Ho1H++bxHrJ/PaZstXjymLInj91n2u2x7v78A7MLOK5ANwAA
+   H4sIAAAAAAAAC+3VwQ7CIBREUUi6qAvU//9aVxhKHg8oKLTcSWZBRVJOEDdjzLZQrTnGTvBOM3jsGQ+7UMO8Eiaj3xEPPGYpHnjggQceeODRZ5/x2CTmaR5vYY3WPE9W26tft0f+7dGSlEXP4HHMlTweiefS7yh3f/hxvGarhyuY0yt7fso3pR7xmjUe0p1We379d13QkrFUp7RmzZ4e4WfaeRr936s1dOrlkcvoPdcWDzzw+K2Hdr9L9/2VesbjzsUDDzzwwAMPPPDAA4+ZigcepR7+GR6cDzzwwAMPPPDAAw885igeuoc3iT2keau01O3O/QBXyPlbQDcAAA==
   </data>
  </layer>
 </map>
