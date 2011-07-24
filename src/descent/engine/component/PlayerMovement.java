@@ -36,6 +36,8 @@ public class PlayerMovement extends Component {
     private static final int maxJumpTime = 300;
     private int velocity_y = 0;
     
+    private boolean leftWalk;
+    
     
 
     public PlayerMovement( String id )
@@ -82,11 +84,19 @@ public class PlayerMovement extends Component {
     
     private void playWalkingSound() throws SlickException {
         if(onTopOfWall() && (walkSoundCounter)<0) {
-            ResourceManager.getInstance().getWalk().play();
-            walkSoundCounter=200;
+            
+            if(leftWalk) {
+                ResourceManager.getInstance().getWalk().play(0.9f, 0.5f);
+                leftWalk=!leftWalk;
+            } else {
+                ResourceManager.getInstance().getWalk().play(0.8f, 0.5f);
+                leftWalk=!leftWalk;
+            }
+            
+            walkSoundCounter=175;
         }
     }
-
+    
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
 
@@ -115,7 +125,7 @@ public class PlayerMovement extends Component {
                 jumpCounter=maxJumpTime;
                 isJumping=true;
                 try {
-                    ResourceManager.getInstance().getJump().play();
+                    ResourceManager.getInstance().getJump().play(0.6f, 1.0f);
                 } catch (SlickException ex) {
                     Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -127,12 +137,14 @@ public class PlayerMovement extends Component {
                 if (blocked()) {
                     position.x += hori_velocity >> 8;
                     entity.getCollisionBox().setX(position.x);
+                } else {
+                    try {
+                        playWalkingSound();
+                    } catch (SlickException ex) {
+                        Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                try {
-                    playWalkingSound();
-                } catch (SlickException ex) {
-                    Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
                 inputCounter=10;
             }
             
@@ -142,11 +154,12 @@ public class PlayerMovement extends Component {
                 if (blocked()) {
                     position.x -= hori_velocity >> 8;
                     entity.getCollisionBox().setX(position.x);
-                }
-                try {
-                    playWalkingSound();
-                } catch (SlickException ex) {
-                    Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    try {
+                        playWalkingSound();
+                    } catch (SlickException ex) {
+                        Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 inputCounter=10;
             }

@@ -50,7 +50,6 @@ public class GameplayState extends BasicGameState {
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
         player = CollisionBlocks.getInstance().getPlayer();
-//        alphamap = new Image("testdata/alphamap.png");
         alphamap = ResourceManager.getInstance().getAlphamap();
         
         gc.getGraphics().setBackground(Color.black);
@@ -69,10 +68,10 @@ public class GameplayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics gr) throws SlickException {
         
-        gr.clearAlphaMap();
-        // write only alpha
+//        gr.clearAlphaMap();
+//        // write only alpha
 //        gr.setDrawMode(Graphics.MODE_ALPHA_MAP);
-//        alphamap.drawCentered(player.getPosition().x,player.getPosition().y);
+//        alphamap.drawCentered(player.getPosition().x+ 5.5f,player.getPosition().y + 7);
 //        gr.setDrawMode(Graphics.MODE_ALPHA_BLEND);
         
         background.draw();
@@ -111,6 +110,10 @@ public class GameplayState extends BasicGameState {
 
         if (i.isKeyPressed(Input.KEY_R)) {
             gc.reinit();
+        }
+        
+        if (i.isKeyPressed(Input.KEY_ESCAPE)) {
+            sbg.enterState(Descent.MAINMENUSTATE);
         }
 
         player.update(gc, sbg, delta);

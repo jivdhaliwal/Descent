@@ -93,7 +93,10 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
             
         }
         if(source == world4Area) {
-            
+            GameplayState gameplaystate = new GameplayState();
+            gameplaystate.setLevel(1, 0);
+            game.addState(gameplaystate);
+            game.enterState(Descent.GAMEPLAYSTATE);
         }
     }
     

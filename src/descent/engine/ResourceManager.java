@@ -30,7 +30,10 @@ public class ResourceManager {
     private Sound jump;
     private Sound walk;
     private Sound bump;
+    private Sound checkpoint;
     private Sound die;
+    private Sound walk_l;
+    private Sound walk_r;
     
     private Music track1;
     
@@ -65,6 +68,7 @@ public class ResourceManager {
         walk = new Sound("audio/effects/walk.wav");
         bump = new Sound("audio/effects/bump.wav");
         die = new Sound("audio/effects/die.wav");
+        checkpoint = new Sound("audio/effects/checkpoint.wav");
         
         // Load Music
 //        track1 = new Music("audio/music/track1.aiff");
@@ -168,6 +172,27 @@ public class ResourceManager {
      */
     public Music getTrack1() {
         return track1;
+    }
+
+    /**
+     * @return the walk_l
+     */
+    public Sound getWalk_l() {
+        return walk_l;
+    }
+
+    /**
+     * @return the walk_r
+     */
+    public Sound getWalk_r() {
+        return walk_r;
+    }
+
+    /**
+     * @return the checkpoint
+     */
+    public Sound getCheckpoint() {
+        return checkpoint;
     }
     
 }

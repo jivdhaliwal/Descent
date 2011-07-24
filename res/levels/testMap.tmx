@@ -56,7 +56,7 @@
    <property name="Layer" value="collision"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OsQ0AAAQAMDv/3+sIg4j2gkYAAAAAAAAAAAAAAFO1HQAA4JXcDhzRm0EENkA3AAA=
+   H4sIAAAAAAAAC+3OoQ0AAAjAMDz8fy+eA0DQJvOLAAAAAAAAAAAAAAAAgH11PQAP5OibBk2WRiRANwAA
   </data>
  </layer>
  <layer name="platforms" width="68" height="52">
@@ -69,7 +69,7 @@
    <property name="Layer" value="map"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3aMQrDMBQFQQV8/zOn1QqFlC7+LLzKjZhCbvSstR6zP/sM381jajwaj8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPBqPxqPtHvubsqmdHtPj0Xg0Hs192vxvG4/Go/Fovzym7LS4eUzZzePtM73tcW7//gXqY6GsQDcAAA==
+   H4sIAAAAAAAAC+3YMQrDMBBFwTX4/mdOZcITDiZVApoHv9tCTKlzZk6zh+0ej8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPNoxb4vjx2/5h3g0Ho1H49F4NB6NR+PReDQejUdbPa7d3e3gxaN967HD1j+QTx7r3S7jMfMCz3VaD0A3AAA=
   </data>
  </layer>
 </map>

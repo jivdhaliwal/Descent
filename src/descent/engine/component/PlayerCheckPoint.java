@@ -22,6 +22,8 @@ public class PlayerCheckPoint extends Component{
     private ArrayList<Rectangle> checkpoints;
     private Rectangle currentCheckpoint;
     
+    private boolean firstCheckpoint = true;
+    
     public PlayerCheckPoint(String id) {
         
         this.id = id;
@@ -72,7 +74,19 @@ public class PlayerCheckPoint extends Component{
     public void checkCheckpointCollision(){
         for(int i=0;i<checkpoints.size();i++){
             if(entity.getCollisionBox().intersects(checkpoints.get(i))) {
-                currentCheckpoint = checkpoints.get(i);
+                if(currentCheckpoint!=checkpoints.get(i)) {
+                    currentCheckpoint = checkpoints.get(i);
+                    // Only play checkpoint sound if player touches any checkpoint
+                    // other than the starting one
+                    if(!firstCheckpoint) {
+                        try {
+                            ResourceManager.getInstance().getCheckpoint().play();
+                        } catch (SlickException ex) {
+                            Logger.getLogger(PlayerCheckPoint.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    firstCheckpoint = false;
+                }
             }
         }
     }
