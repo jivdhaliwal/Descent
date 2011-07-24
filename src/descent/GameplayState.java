@@ -2,12 +2,11 @@ package descent;
 
 import descent.engine.CollisionBlocks;
 import descent.engine.LevelLoader;
-import descent.engine.component.*;
+import descent.engine.ResourceManager;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -24,6 +23,9 @@ public class GameplayState extends BasicGameState {
     private Image playerSprite;
     
     private Image background;
+    
+    private Image alphamap;
+    private Image textureMap;
     
 
     GameplayState() {
@@ -44,21 +46,14 @@ public class GameplayState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         gc.setShowFPS(false);
         map = LevelLoader.getInstance().getLevelMap(currentWorld,currentLevel);
-        background = new Image("levels/backgrounds/background1.png");
+        background = ResourceManager.getInstance().getGameBackground();
         TILESIZE = map.getTileHeight();
         CollisionBlocks.getInstance().setMap(map);
-        
         player = CollisionBlocks.getInstance().getPlayer();
-//        playerSprite = new Image("sprites/player.png");
-//        
-//        player = new Entity();
-//        player.setCollisionBox(new Polygon(new float[]{0, 0, 10, 0, 10, 13, 0, 13}));
-//        player.setPosition(CollisionBlocks.getInstance().getStartPoint());
-//        player.getCollisionBox().setLocation(player.getPosition());
-//        player.AddComponent(new ImageRenderComponent("ImageRender", playerSprite));
-//        player.AddComponent(new PlayerMovement("PlayerMovement"));
-//        player.AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
-
+//        alphamap = new Image("testdata/alphamap.png");
+        alphamap = ResourceManager.getInstance().getAlphamap();
+        
+        gc.getGraphics().setBackground(Color.black);
         gc.setMinimumLogicUpdateInterval(5);
         gc.setMaximumLogicUpdateInterval(20);
         }
@@ -73,6 +68,13 @@ public class GameplayState extends BasicGameState {
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics gr) throws SlickException {
+        
+        gr.clearAlphaMap();
+        // write only alpha
+//        gr.setDrawMode(Graphics.MODE_ALPHA_MAP);
+//        alphamap.drawCentered(player.getPosition().x,player.getPosition().y);
+//        gr.setDrawMode(Graphics.MODE_ALPHA_BLEND);
+        
         background.draw();
         map.render(0,0,2,2,64*10,48*10,map.getLayerIndex("map"),true);
         player.render(gc, sbg, gr);
@@ -81,7 +83,8 @@ public class GameplayState extends BasicGameState {
             platform.render(gc, sbg, gr);
         }
         
-        // Draw collision boxes for debuggins
+        gr.setDrawMode(Graphics.MODE_NORMAL);
+//        // Draw collision boxes for debuggins
 //        for(Rectangle block:CollisionBlocks.getInstance().getSpikeBlocks()) {
 //            gr.setColor(Color.green);
 //            gr.draw(block);

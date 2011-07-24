@@ -56,12 +56,12 @@
    <property name="Layer" value="collision"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OMQkAAAwDsP7z73cySiFRkAQAAAAAAAAAAAAAAACAJdcOjHgqAPP6QDcAAA==
+   H4sIAAAAAAAAC+3OsQ0AAAQAMDv/3+sIg4j2gkYAAAAAAAAAAAAAAFO1HQAA4JXcDhzRm0EENkA3AAA=
   </data>
  </layer>
  <layer name="platforms" width="68" height="52">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3LsQkAAAgEsa/cf2SXUEFI6rsEAAAAAAAAAAAAAACAz+ro2+4BpjUCkmilQDcAAA==
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAD8GTkRjrZANwAA
   </data>
  </layer>
  <layer name="map" width="68" height="52">
@@ -69,7 +69,7 @@
    <property name="Layer" value="map"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3asQqDQBRFQQOW5v9/N61nMSTdFm8O3MpmGcRtPI/jOM1+7DV8Tx5T49F4NB6NR+PReDQejUfj0Xg0Ho1H49F4NB6NR+PReDQejUfj0Xg0Ho1H49F4NB6NR+PReDQejUfj0Xg0Hu3ucf+nbGqrx/RWj2vvcbbn/Wg8mu9pc982Ho1H++bxHrJ/PaZstXjymLInj91n2u2x7v78A7MLOK5ANwAA
+   H4sIAAAAAAAAC+3aMQrDMBQFQQV8/zOn1QqFlC7+LLzKjZhCbvSstR6zP/sM381jajwaj8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPBqPxqPxaDwaj8aj8Wg8Go/Go/FoPBqPxqPtHvubsqmdHtPj0Xg0Hs192vxvG4/Go/Fovzym7LS4eUzZzePtM73tcW7//gXqY6GsQDcAAA==
   </data>
  </layer>
 </map>

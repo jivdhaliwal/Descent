@@ -1,9 +1,13 @@
 package descent.engine.component;
 
 import descent.engine.CollisionBlocks;
+import descent.engine.ResourceManager;
 import descent.engine.entity.Entity;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -27,18 +31,25 @@ public class PlayerCheckPoint extends Component{
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         checkCheckpointCollision();
-        if(checkSpikeCollision()) {
-            entity.setPosition(new Vector2f(
-                    getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
-            entity.getCollisionBox().setLocation(new Vector2f(
-                    getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
-//            entity.setPosition(new Vector2f(8f,16f));
-//            entity.getCollisionBox().setLocation(new Vector2f(8f,16f));
+        try {
+            if(checkSpikeCollision()) {
+                PlayerMovement movement = (PlayerMovement) entity.getComponent("PlayerMovement");
+                movement.resetMovement();
+                ResourceManager.getInstance().getDie().play();
+                entity.setPosition(new Vector2f(
+                        getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
+                entity.getCollisionBox().setLocation(new Vector2f(
+                        getCurrentCheckpoint().getX(),getCurrentCheckpoint().getY()));
+    //            entity.getCollisionBox().setLocation(new Vector2f(8f,16f));
+    //            entity.getCollisionBox().setLocation(new Vector2f(8f,16f));
+            }
+        } catch (SlickException ex) {
+            Logger.getLogger(PlayerCheckPoint.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
     
-    public boolean checkSpikeCollision(){
+    public boolean checkSpikeCollision() throws SlickException{
         for(int i=0;i<CollisionBlocks.getInstance().getSpikeBlocks().size();i++){
             if(entity.getCollisionBox().intersects(CollisionBlocks.getInstance().getSpikeBlocks().get(i))) {
                 return true;

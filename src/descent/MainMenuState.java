@@ -1,5 +1,7 @@
 package descent;
 
+import descent.engine.LevelLoader;
+import descent.engine.ResourceManager;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -41,11 +43,11 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
         gc.setShowFPS(false);
         this.game = sbg;
         
-        background = new Image("levels/backgrounds/menu/mainmenu.png");
-        world1 = new Image("levels/backgrounds/menu/world1.png");
-        world2 = new Image("levels/backgrounds/menu/world2Disabled.png");
-        world3 = new Image("levels/backgrounds/menu/world3Disabled.png");
-        world4 = new Image("levels/backgrounds/menu/world4Disabled.png");
+        background = ResourceManager.getInstance().getMenuBackground();
+        world1 = ResourceManager.getInstance().getWorld1();
+        world2 = ResourceManager.getInstance().getWorld2();
+        world3 = ResourceManager.getInstance().getWorld3();
+        world4 = ResourceManager.getInstance().getWorld4();
         
         world1Area = new MouseOverArea(gc, world1, world1X, worldY,this);
         world2Area = new MouseOverArea(gc, world2, world2X, worldY,this);
@@ -56,6 +58,10 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
 //        world2Area.setMouseOverColor(Color.black);
 //        world3Area.setMouseOverColor(Color.black);
 //        world4Area.setMouseOverColor(Color.black);
+        
+        //Init LevelLoader early to reduce stutter when first map loads
+        LevelLoader.getInstance();
+        
     }
 
     @Override

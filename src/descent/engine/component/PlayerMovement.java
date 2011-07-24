@@ -4,12 +4,16 @@ package descent.engine.component;
  * @author Jiv Dhaliwal <jivdhaliwal@gmail.com>
  */
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 import descent.GameplayState;
 import descent.engine.CollisionBlocks;
+import descent.engine.ResourceManager;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.geom.Polygon;
 
@@ -21,6 +25,7 @@ public class PlayerMovement extends Component {
     private int inputCounter;
     private int jumpCounter;
     private int gravityCounter;
+    private int walkSoundCounter;
     
     private boolean isJumping;
     
@@ -66,6 +71,21 @@ public class PlayerMovement extends Component {
         }
         return false;
     }
+    
+    // Call to reset player's velocity and jumping state
+    // Stops player jumping out if they died while jumping
+    public void resetMovement() {
+        velocity_y = 0;
+        isJumping = true;
+        jumpCounter=-1;
+    }
+    
+    private void playWalkingSound() throws SlickException {
+        if(onTopOfWall() && (walkSoundCounter)<0) {
+            ResourceManager.getInstance().getWalk().play();
+            walkSoundCounter=200;
+        }
+    }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
@@ -79,6 +99,7 @@ public class PlayerMovement extends Component {
         inputCounter-=delta;
         jumpCounter-=delta;
         gravityCounter-=delta;
+        walkSoundCounter-=delta;
 
         Input input = gc.getInput();
 
@@ -93,6 +114,11 @@ public class PlayerMovement extends Component {
             if(input.isKeyPressed(Input.KEY_SPACE) && !isJumping) {
                 jumpCounter=maxJumpTime;
                 isJumping=true;
+                try {
+                    ResourceManager.getInstance().getJump().play();
+                } catch (SlickException ex) {
+                    Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             if(input.isKeyDown(Input.KEY_LEFT)) {
@@ -101,6 +127,11 @@ public class PlayerMovement extends Component {
                 if (blocked()) {
                     position.x += hori_velocity >> 8;
                     entity.getCollisionBox().setX(position.x);
+                }
+                try {
+                    playWalkingSound();
+                } catch (SlickException ex) {
+                    Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 inputCounter=10;
             }
@@ -111,6 +142,11 @@ public class PlayerMovement extends Component {
                 if (blocked()) {
                     position.x -= hori_velocity >> 8;
                     entity.getCollisionBox().setX(position.x);
+                }
+                try {
+                    playWalkingSound();
+                } catch (SlickException ex) {
+                    Logger.getLogger(PlayerMovement.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 inputCounter=10;
             }
