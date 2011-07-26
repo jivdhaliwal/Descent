@@ -64,13 +64,9 @@ public class CollisionBlocks {
         spikeBlocks = new ArrayList<Rectangle>();
         checkpoints = new ArrayList<Rectangle>();
         platforms = new ArrayList<Entity>();
-        generateStartPoint();
-        generateEndPoint();
+        generateStart_EndPoint();
         generatePlayer();
-        generateWallBlocks();
-        generateOnWallBlocks();
-        generateSpikeBlocks();
-        generateCheckpoints();
+        generateCollisionBlocks();
         generateMovingPlatforms();
         
     }
@@ -86,7 +82,7 @@ public class CollisionBlocks {
         getPlayer().AddComponent(new PlayerCheckPoint("PlayerCheckPoint"));
     }
 
-    private void generateWallBlocks() {
+    private void generateCollisionBlocks() {
 
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
@@ -100,53 +96,15 @@ public class CollisionBlocks {
                                 squareX + TILESIZE, squareY, 
                                 squareX + TILESIZE, squareY-1 + TILESIZE, 
                                 squareX+1, squareY-1 + TILESIZE}));
-                }
-            }
-        }
-    }
-    
-    // Collision boxes for checking if player is on top of a wall
-    private void generateOnWallBlocks() {
-
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
-
-                String value = map.getTileProperty(tileID, "Type", "false");
-                if ("collision".equals(value)) {
-                    int squareX = (x * TILESIZE)+mapOffset;
-                    int squareY = (y * TILESIZE)+mapOffset;
                     onWallBlocks.add(new Polygon(new float[]{squareX+2, squareY-4,
                                 squareX-1 + TILESIZE, squareY-4, 
                                 squareX-1 + TILESIZE, squareY, 
                                 squareX+2, squareY}));
-                }
-            }
-        }
-    }
-
-    private void generateSpikeBlocks() {
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
-
-                String value = map.getTileProperty(tileID, "Type", "false");
-                if ("spike".equals(value)) {
+                } else if ("spike".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
                     spikeBlocks.add(new Rectangle(squareX+3, squareY+2,7, 7));
-                }
-            }
-        }
-    }
-
-    private void generateCheckpoints() {
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, map.getLayerIndex("map"));
-
-                String value = map.getTileProperty(tileID, "Type", "false");
-                if ("checkpoint".equals(value)) {
+                } else if ("checkpoint".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
                     checkpoints.add(new Rectangle(squareX+1, squareY-6, 10, 15));
@@ -177,7 +135,7 @@ public class CollisionBlocks {
         }
     }
     
-    private void generateStartPoint() {
+    private void generateStart_EndPoint() {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 int tileID = map.getTileId(x, y, map.getLayerIndex("collision"));
@@ -188,19 +146,7 @@ public class CollisionBlocks {
                     int squareY = (y * TILESIZE)+mapOffset;
                     startPoint = new Vector2f(squareX,squareY);
                     break;
-                }
-            }
-        }
-    }
-    
-    
-    private void generateEndPoint() {
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                int tileID = map.getTileId(x, y, map.getLayerIndex("collision"));
-
-                String value = map.getTileProperty(tileID, "Type", "false");
-                if ("end".equals(value)) {
+                } else if ("end".equals(value)) {
                     int squareX = (x * TILESIZE)+mapOffset;
                     int squareY = (y * TILESIZE)+mapOffset;
                     endPoint = new Rectangle(squareX-5, squareY, 20, 10);

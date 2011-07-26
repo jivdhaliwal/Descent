@@ -32,8 +32,6 @@ public class ResourceManager {
     private Sound bump;
     private Sound checkpoint;
     private Sound die;
-    private Sound walk_l;
-    private Sound walk_r;
     
     private Music track1;
     
@@ -172,20 +170,6 @@ public class ResourceManager {
      */
     public Music getTrack1() {
         return track1;
-    }
-
-    /**
-     * @return the walk_l
-     */
-    public Sound getWalk_l() {
-        return walk_l;
-    }
-
-    /**
-     * @return the walk_r
-     */
-    public Sound getWalk_r() {
-        return walk_r;
     }
 
     /**
