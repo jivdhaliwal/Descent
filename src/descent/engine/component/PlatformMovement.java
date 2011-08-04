@@ -4,9 +4,7 @@ import descent.GameplayState;
 import descent.engine.CollisionBlocks;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,9 +24,9 @@ public class PlatformMovement extends Component{
     // Directions
     private int direction;
     private static final int LEFT = -1;
-    private static final int RIGHT = 1;
-    private static final int UP = -1;
-    private static final int DOWN = 1;
+//    private static final int RIGHT = 1;
+//    private static final int UP = -1;
+//    private static final int DOWN = 1;
        
     // 256>>8 == 1 pixel per update
     private int velocity = 256;

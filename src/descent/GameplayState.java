@@ -5,8 +5,6 @@ import descent.engine.LevelLoader;
 import descent.engine.ResourceManager;
 import descent.engine.entity.Entity;
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -25,7 +23,6 @@ public class GameplayState extends BasicGameState {
     private Image background;
     
     private Image alphamap;
-    private Image textureMap;
     
 
     GameplayState() {

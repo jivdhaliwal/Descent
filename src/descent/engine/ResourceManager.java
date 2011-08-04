@@ -22,6 +22,8 @@ public class ResourceManager {
     private Image world4;
     private Image menuBackground;
     private Image gameBackground;
+    private Image muteOn;
+    private Image muteOff;
     
     private Image playerSprite;
     private Image platformSprite;
@@ -54,6 +56,8 @@ public class ResourceManager {
         world2 = new Image("levels/backgrounds/menu/world2Disabled.png");
         world3 = new Image("levels/backgrounds/menu/world3Disabled.png");
         world4 = new Image("levels/backgrounds/menu/world4Disabled.png");
+        muteOn = new Image("levels/backgrounds/menu/muteon.png");
+        muteOff = new Image("levels/backgrounds/menu/muteoff.png");
         
         // Load Game Res
         gameBackground = new Image("levels/backgrounds/background1.png");
@@ -178,5 +182,13 @@ public class ResourceManager {
     public Sound getCheckpoint() {
         return checkpoint;
     }
+
+	public Image getMuteOn() {
+		return muteOn;
+	}
+
+	public Image getMuteOff() {
+		return muteOff;
+	}
     
 }

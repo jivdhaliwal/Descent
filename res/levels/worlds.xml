@@ -6,7 +6,8 @@
 		<Level name="3" path="levels/world1/1_3.tmx"/>
 		<Level name="4" path="levels/world1/1_4.tmx"/>
 		<Level name="5" path="levels/world1/1_5.tmx"/>
-		<Level name="5" path="levels/world1/1_6.tmx"/>
+		<Level name="6" path="levels/world1/1_6.tmx"/>
+		<Level name="7" path="levels/world1/1_7.tmx"/>
 	</World>
 	<World name="Testing World">
 		<Level name="0" path="levels/testMap.tmx"/>

@@ -22,6 +22,7 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
     private int stateID = 0;
     
     private StateBasedGame game;
+    private GameContainer gc;
     
     private int worldY = 317;
     private int world1X = 205;
@@ -29,9 +30,13 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
     private int world3X = 331;
     private int world4X = 397;
     
-    private Image background,world1,world2,world3,world4; 
+    private Image background,world1,world2,world3,world4,muteOn,muteOff; 
     
-    private MouseOverArea world1Area,world2Area,world3Area,world4Area;
+    private MouseOverArea world1Area,world2Area,world3Area,world4Area,muteArea;
+    
+    private boolean muted;
+
+	
 
     @Override
     public int getID() {
@@ -42,17 +47,21 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         gc.setShowFPS(false);
         this.game = sbg;
+        this.gc = gc;
         
         background = ResourceManager.getInstance().getMenuBackground();
         world1 = ResourceManager.getInstance().getWorld1();
         world2 = ResourceManager.getInstance().getWorld2();
         world3 = ResourceManager.getInstance().getWorld3();
         world4 = ResourceManager.getInstance().getWorld4();
+        muteOn = ResourceManager.getInstance().getMuteOn();
+        muteOff = ResourceManager.getInstance().getMuteOff();
         
         world1Area = new MouseOverArea(gc, world1, world1X, worldY,this);
         world2Area = new MouseOverArea(gc, world2, world2X, worldY,this);
         world3Area = new MouseOverArea(gc, world3, world3X, worldY,this);
         world4Area = new MouseOverArea(gc, world4, world4X, worldY,this);
+        muteArea = new MouseOverArea(gc, muteOff, 580, 10,this);
         
         world1Area.setMouseOverColor(Color.lightGray);
 //        world2Area.setMouseOverColor(Color.black);
@@ -72,6 +81,8 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
         world2Area.render(gc, grphcs);
         world3Area.render(gc, grphcs);
         world4Area.render(gc, grphcs);
+        
+        muteArea.render(gc, grphcs);
     }
 
     @Override
@@ -97,6 +108,15 @@ public class MainMenuState extends BasicGameState implements ComponentListener{
             gameplaystate.setLevel(1, 0);
             game.addState(gameplaystate);
             game.enterState(Descent.GAMEPLAYSTATE);
+        }
+        if(source==muteArea) {
+        	muted = !muted;
+        	gc.setSoundOn(!muted);
+        	if(muted) {
+        		muteArea = new MouseOverArea(gc, muteOn, 580, 10,this);
+        	} else {
+        		muteArea = new MouseOverArea(gc, muteOff, 580, 10,this);
+        	}
         }
     }
     
